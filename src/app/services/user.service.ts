@@ -37,7 +37,7 @@ export class UserService {
         userObj.emailId = currentRow[2];
         userObj.mobileNo = currentRow[3];
         userObj.role = currentRow[4];
-        userObj.userStatus = currentRow[5];
+        userObj.status = currentRow[5];
         return this.registerUser(userObj);
       })
     );
@@ -49,5 +49,9 @@ export class UserService {
 
   resetPassword(userDetails) {
     return this.http.put<any>(`${environment.baseUrl}/api/reset_password`, userDetails);
+  }
+
+  getDashboardData() {
+    return this.http.get(`${environment.baseUrl}/api/get_dashboard_data`);
   }
 }
