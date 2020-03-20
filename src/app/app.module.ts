@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CurrencyPipe } from '@angular/common';
+import { LoaderInterceptorService } from './services/loader-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -24,7 +25,8 @@ import { CurrencyPipe } from '@angular/common';
     StatusBar,
     SplashScreen, CurrencyPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })
