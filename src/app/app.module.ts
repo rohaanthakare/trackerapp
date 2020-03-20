@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -21,7 +22,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen, CurrencyPipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],

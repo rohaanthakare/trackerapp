@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { GlobalConstants } from '../global/global-contants';
+import { MasterDataService } from '../services/master-data.service';
 import { Chart } from 'chart.js';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -11,41 +14,115 @@ import { Chart } from 'chart.js';
 export class HomePage implements OnInit {
   @ViewChild('barCanvas', {static: false}) barCanvas: ElementRef;
   private barChart: Chart;
-  constructor(private userService: UserService) {}
-
+  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe) {}
+  budgetStatus = [];
+  expenseSplit = [];
+  expenseCategory = [];
+  totalMonthlyExpense: any;
+  totalBalance: any;
+  moneyToGive: any;
+  moneyToTake: any;
   ngOnInit() {
-    this.userService.getDashboardData().subscribe(
-      response => {
-        this.createBalanceChart();
+    this.masterDataService.getMasterDataForParent('EXPENSE_CATEGORY').subscribe(
+      (response: any) => {
+        this.expenseCategory = response.data;
+        this.getDashboardData();
       }
     );
   }
 
-  createBalanceChart() {
+  getDashboardData() {
+    this.userService.getDashboardData().subscribe(
+      (response: any) => {
+        this.prepareAccountBalanceChartData(response.accounts);
+        this.createBalanceChart(response.expenseHistory);
+        this.prepareExpenseSplitData(response.expenseSplit);
+        this.prepareBudgetStatus(response.financeProfile.budgetConfig);
+        this.moneyToGive = this.cp.transform(response.settlements.MONEY_TO_GIVE, 'INR', '');
+        this.moneyToTake = this.cp.transform(response.settlements.MONEY_TO_TAKE, 'INR', '');
+      }
+    );
+  }
+
+  prepareAccountBalanceChartData(data) {
+    this.totalBalance = 0;
+    data.forEach((d) => {
+      this.totalBalance += d.balance;
+    });
+    this.totalBalance = this.cp.transform(this.totalBalance, 'INR', '');
+  }
+
+  prepareExpenseSplitData(data) {
+    this.expenseSplit = [];
+    this.totalMonthlyExpense = 0;
+    data.forEach((d) => {
+      this.totalMonthlyExpense += d.total;
+      this.expenseSplit.push({
+        name: d.expense_tps[0].configName,
+        value: d.total
+      });
+    });
+    this.totalMonthlyExpense = this.cp.transform(this.totalMonthlyExpense, 'INR', '');
+  }
+
+  prepareBudgetStatus(data) {
+    console.log('Inside budget status');
+    this.budgetStatus = [];
+    for (const key in data) {
+      if (data[key] > 0) {
+        const catg = this.expenseCategory.find((c) => c.configCode === key);
+        const spentCfg = this.expenseSplit.find((c) => c.name === catg.configName);
+        const spentAmt = (spentCfg) ? spentCfg.value : 0;
+        const spentAmtLbl = this.cp.transform(spentAmt, 'INR', '');
+        const allocatedLbl = this.cp.transform(data[key], 'INR', '');
+        const spentPer = (data[key] - spentAmt) / data[key];
+        let progressColor = 'primary';
+
+        if (spentPer <= 0) {
+          progressColor = 'dark';
+        } else if (spentPer > 0 && spentPer < 0.1) {
+          progressColor = 'danger';
+        } else if (spentPer > 0.11 && spentPer < 0.5) {
+          progressColor = 'warning';
+        } else if (spentPer > 0.51 && spentPer < 0.80) {
+          progressColor = 'primary';
+        } else if (spentPer > 0.81) {
+          progressColor = 'success';
+        }
+        const catgEle = {
+          category: catg.configName,
+          spentPercentage: spentPer,
+          spentAmtString: spentAmtLbl,
+          allocatedString: allocatedLbl,
+          barColor: progressColor
+        };
+        this.budgetStatus.push(catgEle);
+      }
+    }
+    console.log(this.budgetStatus);
+  }
+
+  createBalanceChart(data) {
+    const chartLabels = [];
+    const chartData = [];
+    const colors = [];
+    data.forEach((d) => {
+      const labelEle = GlobalConstants.MONTHS_MMM[d._id.month - 1] + ' - ' + d._id.year;
+      chartLabels.push(labelEle);
+      const dataEle = d.total;
+      chartData.push(dataEle);
+      colors.push(GlobalConstants.SINGLE_COLOR.domain);
+    });
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: chartLabels,
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-              'rgba(255,99,132,1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
+            label: 'Monthly Expense',
+            data: chartData,
+            backgroundColor: colors,
+            borderColor: colors,
             borderWidth: 1
           }
         ]
