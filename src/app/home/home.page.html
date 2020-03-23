@@ -1,6 +1,28 @@
+<ion-menu side="end" menuId="settings" contentId="main">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        <i class="fas fa-cog mr-1"></i>Settings
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item><i class="fas fa-user mr-1"></i>Profile</ion-item>
+      <ion-item><i class="fas fa-cogs mr-1"></i>Settings</ion-item>
+      <ion-item><i class="fas fa-sign-out-alt mr-1"></i>Logout</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
+      <ion-button (click)="openSettings()">
+        <i class="fas fa-cog"></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
       <ion-button>
         <ion-icon name="menu"></ion-icon>
       </ion-button>
@@ -9,9 +31,10 @@
       <img src="../../assets/logos/tracker_light.png" style="width:50%">
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content id="main">
   <div class="ion-padding">
     <ion-grid>
       <ion-row>
@@ -78,8 +101,8 @@
           Budget Status
         </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        <ion-list *ngFor="let catg of budgetStatus" color="light">
+      <ion-card-content color="light">
+        <ion-list *ngFor="let catg of budgetStatus" color="light" style="padding-top: 0px; padding-bottom:0px;">
           <ion-list-header color="light">{{catg.category}}</ion-list-header>
           <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
         </ion-list>

@@ -4,6 +4,7 @@ import { GlobalConstants } from '../global/global-contants';
 import { MasterDataService } from '../services/master-data.service';
 import { Chart } from 'chart.js';
 import { CurrencyPipe } from '@angular/common';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ import { CurrencyPipe } from '@angular/common';
 export class HomePage implements OnInit {
   @ViewChild('barCanvas', {static: false}) barCanvas: ElementRef;
   private barChart: Chart;
-  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe) {}
+  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe,
+              private menuCtrl: MenuController) {}
   budgetStatus = [];
   expenseSplit = [];
   expenseCategory = [];
@@ -99,7 +101,6 @@ export class HomePage implements OnInit {
         this.budgetStatus.push(catgEle);
       }
     }
-    console.log(this.budgetStatus);
   }
 
   createBalanceChart(data) {
@@ -139,5 +140,10 @@ export class HomePage implements OnInit {
         }
       }
     });
+  }
+
+  openSettings() {
+    // alert('settings clicked');
+    this.menuCtrl.open('settings');
   }
 }
