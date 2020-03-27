@@ -15,6 +15,29 @@
   </ion-content>
 </ion-menu>
 
+<ion-menu side="start" menuId="trackerNav" contentId="main">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        <span [innerHTML]="trackerMenuTitle" (click)="onMenuClicked(undefined, true)"></span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item button *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
+        <span *ngIf="!menu.iconClass.includes('fas')">
+          <i class="material-icons">{{menu.iconClass}}</i>
+        </span>
+        <span *ngIf="menu.iconClass.includes('fas')">
+            <i class="{{menu.iconClass}} mr-1"></i>
+        </span>
+        {{menu.viewTitle}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
@@ -23,7 +46,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button (click)="openTrackerNav()">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -35,78 +58,5 @@
 </ion-header>
 
 <ion-content id="main">
-  <div class="ion-padding">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6">
-          <ion-card color="success" style="margin: 0px;">
-            <ion-card-header style="padding: 15px;">
-              <ion-card-title style="font-size: 15pt;">
-                <i class='fas fa-rupee-sign mr-1'></i>{{totalBalance}}
-              </ion-card-title>
-              <ion-card-subtitle>
-                Balance
-              </ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-        <ion-col size="6">
-          <ion-card color="danger" style="margin: 0px;">
-            <ion-card-header style="padding: 15px;">
-              <ion-card-title style="font-size: 15pt;">
-                <i class='fas fa-rupee-sign mr-1'></i>{{totalMonthlyExpense}}
-              </ion-card-title>
-              <ion-card-subtitle>
-                Expense
-              </ion-card-subtitle>
-            </ion-card-header>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    
-    
-    <ion-card color="light">
-      <ion-card-header>
-        <ion-card-title>
-          Settlements
-        </ion-card-title>
-        <ion-card-content style="padding: 0px;">
-          <ion-item color="light">
-            <ion-label>Money to Take</ion-label>
-            <ion-note slot="end" color="success" style="font-weight: bold;font-size: 10pt;">
-              <i class='fas fa-rupee-sign mr-1'></i>{{moneyToTake}}
-            </ion-note>
-          </ion-item>
-          <ion-item color="light">
-            <ion-label>Money to Give</ion-label>
-            <ion-note slot="end" color="danger" style="font-weight: bold;font-size: 10pt;">
-              <i class='fas fa-rupee-sign mr-1'></i>{{moneyToGive}}
-            </ion-note>
-          </ion-item>
-        </ion-card-content>
-      </ion-card-header>
-    </ion-card>
-    <ion-card color="light">
-      <ion-card-header>
-        Expense History
-      </ion-card-header>
-      <ion-card-content>
-        <canvas #barCanvas></canvas>
-      </ion-card-content>
-    </ion-card>
-    <ion-card color="light">
-      <ion-card-header>
-        <ion-card-title>
-          Budget Status
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content color="light">
-        <ion-list *ngFor="let catg of budgetStatus" color="light" style="padding-top: 0px; padding-bottom:0px;">
-          <ion-list-header color="light">{{catg.category}}</ion-list-header>
-          <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
-  </div>
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>

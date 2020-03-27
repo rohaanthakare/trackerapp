@@ -15,9 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CurrencyPipe } from '@angular/common';
 import { LoaderInterceptorService } from './services/loader-interceptor.service';
+import { HomePage } from './home/home.page';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, HomePage, DashboardComponent ],
   entryComponents: [],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
     IonicModule.forRoot(), AppRoutingModule],

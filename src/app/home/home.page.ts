@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { GlobalConstants } from '../global/global-contants';
-import { MasterDataService } from '../services/master-data.service';
-import { Chart } from 'chart.js';
-import { CurrencyPipe } from '@angular/common';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { MasterViewService } from '../services/master-view.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,137 +10,40 @@ import { MenuController } from '@ionic/angular';
   encapsulation: ViewEncapsulation.None
 })
 export class HomePage implements OnInit {
-  @ViewChild('barCanvas', {static: false}) barCanvas: ElementRef;
-  private barChart: Chart;
-  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe,
-              private menuCtrl: MenuController) {}
-  budgetStatus = [];
-  expenseSplit = [];
-  expenseCategory = [];
-  totalMonthlyExpense: any;
-  totalBalance: any;
-  moneyToGive: any;
-  moneyToTake: any;
+  menus: any;
+  allMenus: any;
+  trackerMenuTitle = `<i class="fas fa-cog mr-1"></i>Menu`;
+  constructor(private menuCtrl: MenuController, private masterView: MasterViewService, private router: Router) {}
+
   ngOnInit() {
-    this.masterDataService.getMasterDataForParent('EXPENSE_CATEGORY').subscribe(
+    this.masterView.getNavigationMenu().subscribe(
       (response: any) => {
-        this.expenseCategory = response.data;
-        this.getDashboardData();
+        this.menus = response.menus;
+        this.allMenus = response.menus;
       }
     );
-  }
-
-  getDashboardData() {
-    this.userService.getDashboardData().subscribe(
-      (response: any) => {
-        this.prepareAccountBalanceChartData(response.accounts);
-        this.createBalanceChart(response.expenseHistory);
-        this.prepareExpenseSplitData(response.expenseSplit);
-        this.prepareBudgetStatus(response.financeProfile.budgetConfig);
-        this.moneyToGive = this.cp.transform(response.settlements.MONEY_TO_GIVE, 'INR', '');
-        this.moneyToTake = this.cp.transform(response.settlements.MONEY_TO_TAKE, 'INR', '');
-      }
-    );
-  }
-
-  prepareAccountBalanceChartData(data) {
-    this.totalBalance = 0;
-    data.forEach((d) => {
-      this.totalBalance += d.balance;
-    });
-    this.totalBalance = this.cp.transform(this.totalBalance, 'INR', '');
-  }
-
-  prepareExpenseSplitData(data) {
-    this.expenseSplit = [];
-    this.totalMonthlyExpense = 0;
-    data.forEach((d) => {
-      this.totalMonthlyExpense += d.total;
-      this.expenseSplit.push({
-        name: d.expense_tps[0].configName,
-        value: d.total
-      });
-    });
-    this.totalMonthlyExpense = this.cp.transform(this.totalMonthlyExpense, 'INR', '');
-  }
-
-  prepareBudgetStatus(data) {
-    console.log('Inside budget status');
-    this.budgetStatus = [];
-    for (const key in data) {
-      if (data[key] > 0) {
-        const catg = this.expenseCategory.find((c) => c.configCode === key);
-        const spentCfg = this.expenseSplit.find((c) => c.name === catg.configName);
-        const spentAmt = (spentCfg) ? spentCfg.value : 0;
-        const spentAmtLbl = this.cp.transform(spentAmt, 'INR', '');
-        const allocatedLbl = this.cp.transform(data[key], 'INR', '');
-        const spentPer = (data[key] - spentAmt) / data[key];
-        let progressColor = 'primary';
-
-        if (spentPer <= 0) {
-          progressColor = 'dark';
-        } else if (spentPer > 0 && spentPer < 0.1) {
-          progressColor = 'danger';
-        } else if (spentPer > 0.11 && spentPer < 0.5) {
-          progressColor = 'warning';
-        } else if (spentPer > 0.51 && spentPer < 0.80) {
-          progressColor = 'primary';
-        } else if (spentPer > 0.81) {
-          progressColor = 'success';
-        }
-        const catgEle = {
-          category: catg.configName,
-          spentPercentage: spentPer,
-          spentAmtString: spentAmtLbl,
-          allocatedString: allocatedLbl,
-          barColor: progressColor
-        };
-        this.budgetStatus.push(catgEle);
-      }
-    }
-  }
-
-  createBalanceChart(data) {
-    const chartLabels = [];
-    const chartData = [];
-    const colors = [];
-    data.forEach((d) => {
-      const labelEle = GlobalConstants.MONTHS_MMM[d._id.month - 1] + ' - ' + d._id.year;
-      chartLabels.push(labelEle);
-      const dataEle = d.total;
-      chartData.push(dataEle);
-      colors.push(GlobalConstants.SINGLE_COLOR.domain);
-    });
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: chartLabels,
-        datasets: [
-          {
-            label: 'Monthly Expense',
-            data: chartData,
-            backgroundColor: colors,
-            borderColor: colors,
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
-    });
   }
 
   openSettings() {
     // alert('settings clicked');
     this.menuCtrl.open('settings');
+  }
+
+  openTrackerNav() {
+    this.menuCtrl.open('trackerNav');
+  }
+
+  onMenuClicked(menu, homeMenuClicked?) {
+    console.log(menu);
+    if (menu && menu.items) {
+      this.menus = menu.items;
+      this.trackerMenuTitle = `<i class="fas fa-chevron-left mr-1" onClick="onMenuClicked(undefined, true)"></i>Back`;
+    } else if (homeMenuClicked) {
+      this.menus = this.allMenus;
+      this.trackerMenuTitle = `<i class="fas fa-cog mr-1"></i>Menu`;
+    } else {
+      this.router.navigate([menu.viewRoute]);
+      this.menuCtrl.close();
+    }
   }
 }

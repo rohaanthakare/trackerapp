@@ -1,10 +1,25 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { HomePage } from './home/home.page';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  {
+    path: 'home',
+    component: HomePage,
+    children: [{
+      path: '',
+      component: DashboardComponent
+    }, {
+      path: 'dashboard',
+      component: DashboardComponent
+    }, {
+      path: 'password',
+      loadChildren: () => import('./password/password.module').then( m => m.PasswordModule)
+    }]
+  },
 ];
 
 @NgModule({
