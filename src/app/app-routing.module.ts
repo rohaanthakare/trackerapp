@@ -18,6 +18,9 @@ const routes: Routes = [
     }, {
       path: 'password',
       loadChildren: () => import('./password/password.module').then( m => m.PasswordModule)
+    }, {
+      path: 'contact',
+      loadChildren: () => import('./contact/contact.module').then( m => m.ContactModule)
     }]
   },
 ];

@@ -60,6 +60,7 @@ export class PasswordFormComponent implements OnInit {
         this.passwordService.createPassword(this.passwordForm.value).subscribe(
           (response: any) => {
             this.notification.successNotification(response.message);
+            this.router.navigate(['home/password']);
           },
           error => {
             this.notification.errorNotification('Error while updating password, please try again');
