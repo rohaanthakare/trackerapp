@@ -5,6 +5,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
 
 const routes: Routes = [{
   path: '',
@@ -23,7 +24,8 @@ const routes: Routes = [{
 @NgModule({
   declarations: [ContactListComponent, ContactFormComponent],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), IonicModule.forRoot()
+    CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), IonicModule.forRoot(),
+    CoreModule
   ]
 })
 export class ContactModule { }

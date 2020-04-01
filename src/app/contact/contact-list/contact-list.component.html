@@ -13,9 +13,14 @@
     </ion-item>
   </ng-container>
   <ng-container *ngIf="contacts.length !== 0">
-    <ion-item button (click)="itemClicked(pass)" detail *ngFor="let pass of contacts">
+    <ion-item button (click)="itemClicked(contact)" detail *ngFor="let contact of contacts">
+      <ion-avatar slot="start">
+        <img src="../../../assets/icon/user.png">
+      </ion-avatar>
       <ion-label>
-        {{pass.name}}
+        <h3 style="font-size: 13pt;">{{contact.firstName}} {{contact.lastName}}</h3>
+        <p><i class="fas fa-mobile-alt mr-1"></i>{{contact.mobileNo}}</p>
+        <p><i class="fas fa-envelope mr-1"></i>{{contact.email}}</p>
       </ion-label>
     </ion-item>  
   </ng-container>

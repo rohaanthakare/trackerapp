@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { MasterViewService } from '../services/master-view.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomePage implements OnInit {
   menus: any;
   allMenus: any;
   trackerMenuTitle = `<i class="fas fa-cog mr-1"></i>Menu`;
-  constructor(private menuCtrl: MenuController, private masterView: MasterViewService, private router: Router) {}
+  constructor(private menuCtrl: MenuController, private masterView: MasterViewService, private router: Router,
+              private authService: AuthService) {}
 
   ngOnInit() {
     this.masterView.getNavigationMenu().subscribe(
@@ -31,6 +33,11 @@ export class HomePage implements OnInit {
 
   openTrackerNav() {
     this.menuCtrl.open('trackerNav');
+  }
+
+  logout() {
+    this.menuCtrl.close();
+    this.authService.logout();
   }
 
   onMenuClicked(menu, homeMenuClicked?) {
