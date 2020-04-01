@@ -15,14 +15,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CurrencyPipe } from '@angular/common';
 import { LoaderInterceptorService } from './services/loader-interceptor.service';
-import { HomePage } from './home/home.page';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomePageModule } from './home/home.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomePage, DashboardComponent ],
+  declarations: [AppComponent, LoginComponent ],
   entryComponents: [],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
-    IonicModule.forRoot(), AppRoutingModule],
+    IonicModule.forRoot(), AppRoutingModule, HomePageModule],
   providers: [
     StatusBar,
     SplashScreen, CurrencyPipe,
