@@ -20,16 +20,29 @@ export class ModelFormComponent implements OnInit {
   }
 
   saveForm() {
+    this.formFields.forEach((field) => {
+      if (field.type === 'select' && field.control.value) {
+        field.control.setValue(JSON.parse(field.control.value));
+      }
+    });
     this.formSubmit.emit(null);
   }
 
   setValues(modelValue) {
     for (const key of Object.keys(modelValue)) {
       this.formFields.forEach((currentField) => {
-        if (currentField.name === key && modelValue[key] !== 'null') {
-          currentField.control.setValue(modelValue[key]);
+        if (currentField.type === 'select' && currentField.name === key) {
+            currentField.control.setValue(JSON.stringify(modelValue[key]));
+        } else {
+          if (currentField.name === key && modelValue[key] !== 'null') {
+            currentField.control.setValue(modelValue[key]);
+          }
         }
       });
     }
+  }
+
+  setSelectCmpValue(data) {
+    return (data) ? JSON.stringify(data) : data;
   }
 }

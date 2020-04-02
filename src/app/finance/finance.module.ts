@@ -12,6 +12,7 @@ import { BudgetManagerComponent } from './budget-manager/budget-manager.componen
 import { SettlementListComponent } from './settlement-list/settlement-list.component';
 import { ContactTransactionsComponent } from './contact-transactions/contact-transactions.component';
 import { CoreModule } from '../core/core.module';
+import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [{
   path: '',
@@ -58,7 +59,7 @@ const routes: Routes = [{
   declarations: [AccountListComponent, AccountFormComponent, TransactionListComponent, DepositFormComponent, WithdrawFormComponent,
   TransferFormComponent, ExpenseFormComponent, BudgetManagerComponent, SettlementListComponent, ContactTransactionsComponent],
   imports: [
-    CommonModule, RouterModule.forChild(routes), CoreModule
+    CommonModule, RouterModule.forChild(routes), CoreModule, IonicModule.forRoot()
   ]
 })
 export class FinanceModule { }

@@ -9,7 +9,7 @@
           {{fieldConfig.label}}
         </ion-label>
         <ion-select placeholder="Select {{fieldConfig.label}}" [formControlName]="fieldConfig.name">
-          <ion-select-option [value]="data" *ngFor="let data of fieldConfig.dataSource">{{data[fieldConfig.displayField]}}</ion-select-option>
+          <ion-select-option [value]="setSelectCmpValue(data)" *ngFor="let data of fieldConfig.dataSource">{{data[fieldConfig.displayField]}}</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-item *ngSwitchCase="'number'">

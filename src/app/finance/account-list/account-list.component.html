@@ -1,3 +1,28 @@
-<p>
-  account-list works!
-</p>
+<ion-list>
+  <ion-list-header class="list-header-custom">
+    <ion-label color="primary">Accounts</ion-label>
+    <a href="javascript:" (click)="createAccount()" style="margin-right: 15px;">
+      <i class="fas fa-plus"></i>
+    </a>
+  </ion-list-header>  
+  <ng-container *ngIf="accounts.length === 0">
+    <ion-item color="light">
+      <ion-label>
+        No account added yet.
+      </ion-label>
+    </ion-item>
+  </ng-container>
+  <ng-container *ngIf="accounts.length !== 0">
+    <ion-item button (click)="itemClicked(account)" detail *ngFor="let account of accounts">
+      <ion-avatar slot="start">
+        <img src="assets/icon/bank.jpg">
+      </ion-avatar>
+      <ion-label>
+        <h3 style="font-size: 15pt;">
+          <i class='fas fa-rupee-sign mr-1'></i>{{account.balance}}
+        </h3>
+        <p>{{account.accountName}}</p>
+      </ion-label>
+    </ion-item>  
+  </ng-container>
+</ion-list>
