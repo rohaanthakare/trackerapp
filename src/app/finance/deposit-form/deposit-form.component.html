@@ -1,3 +1,2 @@
-<p>
-  deposit-form works!
-</p>
+<app-model-form #depositFormEle [formGroup]="depositForm" [formTitle]="formTitle" (formSubmit)="depositMoney()"
+(selectChange)="onSelectValueChange($event)"></app-model-form>

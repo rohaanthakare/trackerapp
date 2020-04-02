@@ -1,6 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+export class SelectEmitObj {
+  field: any;
+  value: any;
+}
+
 @Component({
   selector: 'app-model-form',
   templateUrl: './model-form.component.html',
@@ -10,21 +15,34 @@ export class ModelFormComponent implements OnInit {
   @Input() formGroup: FormGroup;
   @Input() formTitle: string;
   @Output() formSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() selectChange: EventEmitter<any> = new EventEmitter<any>();
   formFields = [];
+  allFormFields = [];
   constructor() { }
 
   ngOnInit() {}
 
   setFormFields(fields) {
     this.formFields = fields;
+    this.allFormFields = fields;
   }
 
   saveForm() {
     this.formFields.forEach((field) => {
       if (field.type === 'select' && field.control.value) {
-        field.control.setValue(JSON.parse(field.control.value));
+        const selectedData = field.dataSource.find((d) => d[field.valueField] === field.control.value);
+        this.formGroup.value[field.name] = selectedData;
       }
     });
+
+    for (const key in this.formGroup.value) {
+      if (key) {
+        const fieldToCheck = this.formFields.find((f) => f.name === key);
+        if (!fieldToCheck) {
+          delete this.formGroup.value[key];
+        }
+      }
+    }
     this.formSubmit.emit(null);
   }
 
@@ -44,5 +62,35 @@ export class ModelFormComponent implements OnInit {
 
   setSelectCmpValue(data) {
     return (data) ? JSON.stringify(data) : data;
+  }
+
+  resetForm() {
+    this.formGroup.reset();
+    Object.keys(this.formGroup.controls).forEach(key => {
+      this.formGroup.get(key).setErrors(null) ;
+    });
+  }
+
+  addField(fieldName) {
+    const fieldToAdd = this.allFormFields.find((config) => config.name === fieldName);
+    const fieldIndex = this.allFormFields.findIndex((config) => config.name === fieldName);
+    this.formFields.splice(fieldIndex, 0, fieldToAdd);
+    this.formGroup.controls[fieldName] = fieldToAdd.control;
+  }
+
+  removeField(fieldName) {
+    this.formFields = this.formFields.filter((field) => field.name !== fieldName);
+    delete this.formGroup.value.fieldName;
+    delete this.formGroup.controls[fieldName];
+  }
+
+  selectValueChanged(fieldConfig) {
+    const emitVal: SelectEmitObj = new SelectEmitObj();
+    emitVal.field = fieldConfig;
+    console.log(fieldConfig.control);
+    if (fieldConfig.control.value) {
+      emitVal.value = fieldConfig.dataSource.find((d) => d[fieldConfig.valueField] === fieldConfig.control.value);
+    }
+    this.selectChange.emit(emitVal);
   }
 }
