@@ -78,7 +78,7 @@ export class DepositFormComponent implements OnInit {
   }
 
   preReqDataLoaded() {
-    if (this.isDepositTypeLoaded) {
+    if (this.isDepositTypeLoaded && this.isTransactionSubCategoriesLoaded && this.isAccountsLoaded && this.isContactLoaded) {
       this.setFormFields();
     }
   }

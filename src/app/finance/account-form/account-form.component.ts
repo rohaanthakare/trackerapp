@@ -39,7 +39,9 @@ export class AccountFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private masterDataService: MasterDataService, private financeService: FinanceService,
               private notification: NotificationService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.route.paramMap.subscribe(
       params => {
         this.accountId = params.get('id');

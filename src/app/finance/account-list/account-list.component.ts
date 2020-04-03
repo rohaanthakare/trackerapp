@@ -13,7 +13,9 @@ export class AccountListComponent implements OnInit {
   accounts = [];
   constructor(private financeService: FinanceService, private cp: CurrencyPipe, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.financeService.getFinancialAccounts().subscribe(
       (response: any) => {
         this.accounts = this.formatData(response.data);

@@ -1,3 +1,2 @@
-<p>
-  transfer-form works!
-</p>
+<app-model-form #transferFormEle [formGroup]="transferForm" [formTitle]="formTitle" (formSubmit)="transferMoney()"
+(selectChange)="onSelectValueChange($event)"></app-model-form>

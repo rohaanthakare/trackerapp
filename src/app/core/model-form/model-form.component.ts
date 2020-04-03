@@ -23,6 +23,11 @@ export class ModelFormComponent implements OnInit {
   ngOnInit() {}
 
   setFormFields(fields) {
+    fields.forEach((f) => {
+      if (!this.formGroup.controls[f.name]) {
+        this.formGroup.controls[f.name] = f.control;
+      }
+    });
     this.formFields = fields;
     this.allFormFields = fields;
   }
@@ -50,7 +55,8 @@ export class ModelFormComponent implements OnInit {
     for (const key of Object.keys(modelValue)) {
       this.formFields.forEach((currentField) => {
         if (currentField.type === 'select' && currentField.name === key) {
-            currentField.control.setValue(JSON.stringify(modelValue[key]));
+          const fieldValue = modelValue[key];
+          currentField.control.setValue(fieldValue[currentField.valueField]);
         } else {
           if (currentField.name === key && modelValue[key] !== 'null') {
             currentField.control.setValue(modelValue[key]);
@@ -72,10 +78,13 @@ export class ModelFormComponent implements OnInit {
   }
 
   addField(fieldName) {
-    const fieldToAdd = this.allFormFields.find((config) => config.name === fieldName);
-    const fieldIndex = this.allFormFields.findIndex((config) => config.name === fieldName);
-    this.formFields.splice(fieldIndex, 0, fieldToAdd);
-    this.formGroup.controls[fieldName] = fieldToAdd.control;
+    const fieldToCheck = this.formFields.find((config) => config.name === fieldName);
+    if (!fieldToCheck) {
+      const fieldToAdd = this.allFormFields.find((config) => config.name === fieldName);
+      const fieldIndex = this.allFormFields.findIndex((config) => config.name === fieldName);
+      this.formFields.splice(fieldIndex, 0, fieldToAdd);
+      this.formGroup.controls[fieldName] = fieldToAdd.control;
+    }
   }
 
   removeField(fieldName) {
