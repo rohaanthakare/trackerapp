@@ -29,19 +29,19 @@
   </ion-grid>
   
   
-  <ion-card color="light">
+  <ion-card>
     <ion-card-header>
       <ion-card-title>
         Settlements
       </ion-card-title>
       <ion-card-content style="padding: 0px;">
-        <ion-item color="light">
+        <ion-item>
           <ion-label>Money to Take</ion-label>
           <ion-note slot="end" color="success" style="font-weight: bold;font-size: 10pt;">
             <i class='fas fa-rupee-sign mr-1'></i>{{moneyToTake}}
           </ion-note>
         </ion-item>
-        <ion-item color="light">
+        <ion-item>
           <ion-label>Money to Give</ion-label>
           <ion-note slot="end" color="danger" style="font-weight: bold;font-size: 10pt;">
             <i class='fas fa-rupee-sign mr-1'></i>{{moneyToGive}}
@@ -50,7 +50,7 @@
       </ion-card-content>
     </ion-card-header>
   </ion-card>
-  <ion-card color="light">
+  <ion-card>
     <ion-card-header>
       Expense History
     </ion-card-header>
@@ -58,15 +58,15 @@
       <canvas #barCanvas></canvas>
     </ion-card-content>
   </ion-card>
-  <ion-card color="light">
+  <ion-card>
     <ion-card-header>
       <ion-card-title>
         Budget Status
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content color="light">
-      <ion-list *ngFor="let catg of budgetStatus" color="light" style="padding-top: 0px; padding-bottom:0px;">
-        <ion-list-header color="light">{{catg.category}}</ion-list-header>
+    <ion-card-content>
+      <ion-list *ngFor="let catg of budgetStatus" style="padding-top: 0px; padding-bottom:0px;">
+        <ion-list-header>{{catg.category}}</ion-list-header>
         <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
       </ion-list>
     </ion-card-content>

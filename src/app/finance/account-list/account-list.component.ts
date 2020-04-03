@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceService } from 'src/app/services/finance.service';
-import { HelperService } from 'src/app/services/helper.service';
+import { environment } from 'src/environments/environment';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AccountListComponent implements OnInit {
   accounts = [];
+  appUrl: any;
   constructor(private financeService: FinanceService, private cp: CurrencyPipe, private router: Router) { }
 
   ngOnInit() {}
@@ -36,5 +37,14 @@ export class AccountListComponent implements OnInit {
 
   itemClicked(account) {
     this.router.navigate([`home/finance/edit-account/${account._id}`]);
+  }
+
+  getBankLogo(account) {
+    if (account.bank) {
+      this.appUrl = `${environment.baseUrl}/bank-logo/${account.bank.bankCode}.png`;
+    } else {
+      this.appUrl = 'assets/icon/bank.jpg';
+    }
+    return this.appUrl;
   }
 }
