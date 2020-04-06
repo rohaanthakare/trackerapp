@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { LoaderInterceptorService } from './services/loader-interceptor.service';
 import { HomePageModule } from './home/home.module';
 
@@ -24,7 +24,7 @@ import { HomePageModule } from './home/home.module';
     IonicModule.forRoot(), AppRoutingModule, HomePageModule],
   providers: [
     StatusBar,
-    SplashScreen, CurrencyPipe,
+    SplashScreen, CurrencyPipe, DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }

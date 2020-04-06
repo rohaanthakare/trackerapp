@@ -120,4 +120,66 @@ export class FinanceService {
   updateFinancialProfile(profileId, profileData) {
     return this.http.put(`${environment.baseUrl}/api/update_financial_profile/${profileId}`, profileData);
   }
+
+  getTransactionClass(transactionCategory, transactionSubCategory) {
+    if (transactionCategory === 'TRANSFER') {
+      if (transactionSubCategory === 'SETTLEMENT_TR') {
+        return 'fas fa-handshake';
+      } else if (transactionSubCategory === 'LEND') {
+        return 'fas fa-hand-holding-usd';
+      } else if (transactionSubCategory === 'CASH') {
+        return 'fas fa-money-bill-wave';
+      } else if (transactionSubCategory === 'ADJUSTMENT_TR') {
+        return 'fas fa-adjust';
+      }
+      return 'fas fa-exchange-alt';
+    } else if (transactionCategory === 'DEPOSIT') {
+      if (transactionSubCategory === 'SALARY') {
+        return 'fas fa-wallet';
+      } else if (transactionSubCategory === 'TAX_RETURN' || transactionSubCategory === 'INVESTMENT_RETURN') {
+        return 'fas fa-reply';
+      } else if (transactionSubCategory === 'SETTLEMENT') {
+        return 'fas fa-handshake';
+      } else if (transactionSubCategory === 'CASHBACK') {
+        return 'fas fa-wallet';
+      } else if (transactionSubCategory === 'ADJUSTMENT') {
+        return 'fas fa-adjust';
+      }
+      return 'fas fa-sign-in-alt';
+    } else if (transactionCategory === 'EXPENSE') {
+      if (transactionSubCategory === 'GROCERY') {
+        return 'fas fa-carrot';
+      } else if (transactionSubCategory === 'DEBT') {
+        return 'fas fa-credit-card';
+      } else if (transactionSubCategory === 'MISSING') {
+        return 'fas fa-meh-rolling-eyes';
+      } else if (transactionSubCategory === 'FOOD') {
+        return 'fas fa-utensils';
+      } else if (transactionSubCategory === 'BILLS') {
+        return 'fas fa-file-invoice-dollar';
+      } else if (transactionSubCategory === 'TRANSPORTATION') {
+        return 'fas fa-car';
+      } else if (transactionSubCategory === 'TRAVEL') {
+        return 'fas fa-umbrella-beach';
+      } else if (transactionSubCategory === 'INVESTMENT') {
+        return 'fas fa-donate';
+      } else if (transactionSubCategory === 'ENTERTAINMENT') {
+        return 'fas fa-film';
+      } else if (transactionSubCategory === 'PERSONAL') {
+        return 'fas fa-street-view';
+      } else if (transactionSubCategory === 'MEDICAL') {
+        return 'fas fa-file-medical';
+      } else if (transactionSubCategory === 'SHOPPING') {
+        return 'fas fa-shopping-cart';
+      } else if (transactionSubCategory === 'GIFTS') {
+        return 'fas fa-gifts';
+      } else if (transactionSubCategory === 'EDUCATION') {
+        return 'fas fa-graduation-cap';
+      } else if (transactionSubCategory === 'HOUSING') {
+        return 'fas fa-home';
+      }
+      return 'fas fa-sign-in-alt';
+    }
+    return 'fas fa-sign-in-alt';
+  }
 }
