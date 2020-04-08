@@ -13,6 +13,7 @@ import { SettlementListComponent } from './settlement-list/settlement-list.compo
 import { ContactTransactionsComponent } from './contact-transactions/contact-transactions.component';
 import { CoreModule } from '../core/core.module';
 import { IonicModule } from '@ionic/angular';
+import { ExpenseSplitComponent } from './expense-split/expense-split.component';
 
 const routes: Routes = [{
   path: '',
@@ -57,9 +58,11 @@ const routes: Routes = [{
 
 @NgModule({
   declarations: [AccountListComponent, AccountFormComponent, TransactionListComponent, DepositFormComponent, WithdrawFormComponent,
-  TransferFormComponent, ExpenseFormComponent, BudgetManagerComponent, SettlementListComponent, ContactTransactionsComponent],
+  TransferFormComponent, ExpenseFormComponent, BudgetManagerComponent, SettlementListComponent, ContactTransactionsComponent,
+  ExpenseSplitComponent],
   imports: [
     CommonModule, RouterModule.forChild(routes), CoreModule, IonicModule.forRoot()
-  ]
+  ],
+  entryComponents: [ExpenseSplitComponent]
 })
 export class FinanceModule { }

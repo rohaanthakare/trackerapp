@@ -41,7 +41,6 @@ export class HomePage implements OnInit {
   }
 
   onMenuClicked(menu, homeMenuClicked?) {
-    console.log(menu);
     if (menu && menu.items) {
       this.menus = menu.items;
       this.trackerMenuTitle = `<i class="fas fa-chevron-left mr-1" onClick="onMenuClicked(undefined, true)"></i>Back`;

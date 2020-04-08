@@ -10,7 +10,6 @@ export class AuthInterceptorService implements HttpInterceptor {
   constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log('Inside Auth Interceptor');
     const userDetails = this.authService.getCurrentUser();
     const userToken = this.authService.getUserToken();
     if (userDetails && userToken) {

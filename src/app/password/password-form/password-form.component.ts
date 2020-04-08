@@ -42,7 +42,6 @@ export class PasswordFormComponent implements OnInit {
     this.passwordService.getPasswordDetail(this.passwordId).subscribe(
       (response: any) => {
         this.passwordDetail = response.password;
-        console.log(this.passwordDetail);
         this.nameCtrl.setValue(this.passwordDetail.name);
         this.usernameCtrl.setValue(this.passwordDetail.username);
         this.siteLinkCtrl.setValue(this.passwordDetail.siteLink);

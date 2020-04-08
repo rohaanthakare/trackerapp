@@ -96,9 +96,17 @@ export class ModelFormComponent implements OnInit {
   selectValueChanged(fieldConfig) {
     const emitVal: SelectEmitObj = new SelectEmitObj();
     emitVal.field = fieldConfig;
-    console.log(fieldConfig.control);
     if (fieldConfig.control.value) {
-      emitVal.value = fieldConfig.dataSource.find((d) => d[fieldConfig.valueField] === fieldConfig.control.value);
+      if (fieldConfig.type === 'multiselect') {
+        const valArr = [];
+        fieldConfig.control.value.forEach((v) => {
+          const emitValue = fieldConfig.dataSource.find((d) => d[fieldConfig.valueField] === v);
+          valArr.push(emitValue);
+        });
+        emitVal.value = valArr;
+      } else {
+        emitVal.value = fieldConfig.dataSource.find((d) => d[fieldConfig.valueField] === fieldConfig.control.value);
+      }
     }
     this.selectChange.emit(emitVal);
   }
