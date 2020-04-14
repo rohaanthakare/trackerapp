@@ -1,3 +1,31 @@
-<p>
-  settlement-list works!
-</p>
+<ion-list>
+  <ion-list-header class="list-header-custom">
+    <ion-label color="primary">Settlements</ion-label>
+    <!-- <a href="javascript:" (click)="createContact()" style="margin-right: 15px;">
+      <i class="fas fa-plus"></i>
+    </a> -->
+  </ion-list-header>  
+  <ng-container *ngIf="settlements.length === 0">
+    <ion-item color="light">
+      <ion-label>
+        No settlements found.
+      </ion-label>
+    </ion-item>
+  </ng-container>
+  <ng-container *ngIf="settlements.length !== 0">
+    <ion-item button (click)="itemClicked(settlement)" detail *ngFor="let settlement of settlements">
+      <ion-avatar slot="start">
+        <!-- <img src="../../../assets/icon/user.png"> -->
+        <ion-text [color]="settlement.settlementColor">
+          <i class='fas fa-user' style="font-size: 25pt; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+        </ion-text>
+      </ion-avatar>
+      <ion-label>
+        <h3 style="font-size: 13pt;">
+          <i class='fas fa-rupee-sign mr-1'></i>{{settlement.settlementAmtDisplay}}
+        </h3>
+        <p>{{settlement.settlementText}} <b>{{settlement.firstName}} {{settlement.lastName}}</b></p>
+      </ion-label>
+    </ion-item>  
+  </ng-container>
+</ion-list>
