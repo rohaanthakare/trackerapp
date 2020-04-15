@@ -28,6 +28,13 @@ export class UserService {
     });
   }
 
+  activateUserByOtp(userId: any, otp: any) {
+    return this.http.post<any>(`${environment.baseUrl}/api/activate_by_otp`, {
+      id: userId,
+      user_otp: otp
+    });
+  }
+
   uploadUsers(rows, moduleDetails: DataLoadModule, dataLoaderCmp) {
     return from(rows).pipe(
       concatMap(currentRow => {

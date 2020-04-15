@@ -16,9 +16,11 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { LoaderInterceptorService } from './services/loader-interceptor.service';
 import { HomePageModule } from './home/home.module';
+import { RegisterComponent } from './register/register.component';
+import { ActivateComponent } from './activate/activate.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent ],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent],
   entryComponents: [],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
     IonicModule.forRoot(), AppRoutingModule, HomePageModule],

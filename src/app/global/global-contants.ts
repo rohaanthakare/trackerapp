@@ -10,3 +10,8 @@ export class GlobalConstants {
     };
     public static MONTHS_MMM = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 }
+
+export enum Roles {
+    ADMIN = 'ADMIN',
+    TRACKER_USER = 'TRACKER_USER'
+}

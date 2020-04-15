@@ -3,10 +3,14 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomePage } from './home/home.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
+import { ActivateComponent } from './activate/activate.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
+  { path: 'activate-by-otp/:id', component: ActivateComponent},
   {
     path: 'home',
     component: HomePage,

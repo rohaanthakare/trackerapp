@@ -1,0 +1,75 @@
+<ion-content fullscreen color="primary">
+  <form [formGroup]="activationForm">
+    <ion-grid>
+      <ion-list style="background-color: #3f51b5;">
+        <ion-row style="padding-top: 40px; padding-bottom: 20px;">
+          <ion-col></ion-col>
+          <ion-col size="8">
+            <img src="../../assets/logos/tracker_light.png">
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item color="primary">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" formControlName="key1" #key1 (keyup)="moveFocus(key2)"></ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-text class="absolute-vertical-align-center">
+                        <i class="fas fa-minus"></i>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" #key2 formControlName="key2" (keyup)="moveFocus(key3)"></ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-text class="absolute-vertical-align-center">
+                        <i class="fas fa-minus"></i>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" #key3 formControlName="key3" (keyup)="moveFocus(key4)"></ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-text class="absolute-vertical-align-center">
+                        <i class="fas fa-minus"></i>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" #key4 formControlName="key4" (keyup)="moveFocus(key5)"></ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-text class="absolute-vertical-align-center">
+                        <i class="fas fa-minus"></i>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" #key5 formControlName="key5" (keyup)="moveFocus(key6)"></ion-input>
+                    </ion-col>
+                    <ion-col>
+                      <ion-text class="absolute-vertical-align-center">
+                        <i class="fas fa-minus"></i>
+                      </ion-text>
+                    </ion-col>
+                    <ion-col>
+                      <ion-input class="otp-text-ele" type="number" maxlength="1" #key6 formControlName="key6"></ion-input>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>      
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button color="light" expand="block" (click)="activate()">
+                <i class="fas fa-user-shield" style="margin-right: 5px;"></i>Activate
+              </ion-button>    
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </ion-grid>
+  </form>
+</ion-content>
