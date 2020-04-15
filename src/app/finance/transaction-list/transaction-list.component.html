@@ -13,7 +13,7 @@
     </ion-item>
   </ng-container>
   <ng-container *ngIf="transactions.length !== 0">
-    <ion-item button (click)="itemClicked(trans)" (onHold)="showActionsSheet()" detail="false" *ngFor="let trans of transactions">
+    <ion-item button (click)="itemClicked(trans)" detail="false" *ngFor="let trans of transactions">
       <ion-avatar slot="start">
         <ion-text [color]="trans.transClass">
           <i [class]='trans.transIcon' style="font-size: 25pt; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
