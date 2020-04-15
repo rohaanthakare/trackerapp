@@ -46,10 +46,10 @@
                 </ion-label>
                 <ion-input type="password" formControlName="confirmPassword"></ion-input>
               </ion-item>
-              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.hasError('required') && usernameCtrl.touched">
+              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
                 <i class="fas fa-exclamation-circle mr-1"></i>Confirm Password is required
               </ion-text>
-              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.errors?.mustMatch && !confirmPassCtrl.hasError('required')">
+              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.errors?.mustMatch && !confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
                 <i class="fas fa-exclamation-circle mr-1"></i>Password does not match.
               </ion-text>
             </ion-col>
