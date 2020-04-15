@@ -5,9 +5,10 @@ import { HomePage } from './home/home.page';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'activate-by-otp/:id', component: ActivateComponent},

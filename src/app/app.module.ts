@@ -18,9 +18,10 @@ import { LoaderInterceptorService } from './services/loader-interceptor.service'
 import { HomePageModule } from './home/home.module';
 import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent, WelcomeComponent],
   entryComponents: [],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
     IonicModule.forRoot(), AppRoutingModule, HomePageModule],
