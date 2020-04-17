@@ -93,6 +93,12 @@ export class ModelFormComponent implements OnInit {
     delete this.formGroup.controls[fieldName];
   }
 
+  updateSelectFieldDataScource(fieldName, newData) {
+    const field = this.formFields.find((c) => c.name === fieldName);
+    field.dataScource = [];
+    field.dataScource = newData;
+  }
+
   selectValueChanged(fieldConfig) {
     const emitVal: SelectEmitObj = new SelectEmitObj();
     emitVal.field = fieldConfig;

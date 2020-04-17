@@ -23,6 +23,7 @@ export class ExpenseFormComponent implements OnInit {
   expenseTypeCtrl = new FormControl();
   isMultiUserExpense = false;
   userContacts = [];
+  meUserContacts = [];
   isUserContactsLoaded = false;
   userContactControl = new FormControl();
   userContactsControl = new FormControl();
@@ -83,7 +84,10 @@ export class ExpenseFormComponent implements OnInit {
 
     this.contactService.getUserContacts().subscribe(
       (response: any) => {
-        this.userContacts = response.data;
+        this.userContacts = response.data.slice();
+        this.meUserContacts = response.data.slice();
+        const meContact = this.contactService.getMeContact();
+        this.meUserContacts.push(meContact);
         this.isUserContactsLoaded = true;
         this.preReqDataLoaded();
       }
@@ -150,7 +154,7 @@ export class ExpenseFormComponent implements OnInit {
       name: 'userContacts',
       type: 'multiselect',
       control: this.userContactsControl,
-      dataSource: this.userContacts,
+      dataSource: this.meUserContacts,
       renderer: (data) => {
         if (data) {
           const firstName = this.helperService.convertToTitleCase(data.firstName);
