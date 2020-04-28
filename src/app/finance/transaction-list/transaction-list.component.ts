@@ -43,6 +43,8 @@ export class TransactionListComponent implements OnInit {
         }
       } else if (d.transactionCategory.configCode === 'EXPENSE') {
         d.transClass = 'danger';
+      } else if (d.transactionCategory.configCode === 'INVESTMENT') {
+        d.transClass = 'danger';
       }
 
       d.transactionDate = this.dp.transform(new Date(d.transactionDate), 'MMM dd, yyyy');

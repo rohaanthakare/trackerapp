@@ -121,6 +121,10 @@ export class FinanceService {
     return this.http.put(`${environment.baseUrl}/api/update_financial_profile/${profileId}`, profileData);
   }
 
+  addInvestment(transactionDetail) {
+    return this.http.post(`${environment.baseUrl}/api/add_investment`, transactionDetail);
+  }
+
   getTransactionClass(transactionCategory, transactionSubCategory) {
     if (transactionCategory === 'TRANSFER') {
       if (transactionSubCategory === 'SETTLEMENT_TR') {
@@ -161,8 +165,6 @@ export class FinanceService {
         return 'fas fa-car';
       } else if (transactionSubCategory === 'TRAVEL') {
         return 'fas fa-umbrella-beach';
-      } else if (transactionSubCategory === 'INVESTMENT') {
-        return 'fas fa-donate';
       } else if (transactionSubCategory === 'ENTERTAINMENT') {
         return 'fas fa-film';
       } else if (transactionSubCategory === 'PERSONAL') {
@@ -179,6 +181,8 @@ export class FinanceService {
         return 'fas fa-home';
       }
       return 'fas fa-sign-in-alt';
+    } else if (transactionCategory === 'INVESTMENT') {
+      return 'fas fa-donate';
     }
     return 'fas fa-sign-in-alt';
   }
