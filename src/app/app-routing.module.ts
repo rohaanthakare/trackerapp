@@ -30,6 +30,9 @@ const routes: Routes = [
     }, {
       path: 'finance',
       loadChildren: () => import('./finance/finance.module').then( m => m.FinanceModule)
+    }, {
+      path: 'grocery-list',
+      loadChildren: () => import('./grocery/grocery.module').then( m => m.GroceryModule)
     }]
   },
 ];

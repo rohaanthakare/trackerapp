@@ -122,7 +122,11 @@ export class AccountFormComponent implements OnInit {
       control: this.bankCtrl,
       dataSource: this.banks,
       displayField: 'bankName',
-      valueField: '_id'
+      valueField: '_id',
+      childField: {
+        name: 'branch',
+        valueField: 'bank'
+      }
     });
 
     this.formFields.push({

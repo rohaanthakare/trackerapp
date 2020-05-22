@@ -27,6 +27,10 @@ export class ModelFormComponent implements OnInit {
       if (!this.formGroup.controls[f.name]) {
         this.formGroup.controls[f.name] = f.control;
       }
+
+      if (f.type === 'select') {
+        f.allDataSource = f.dataSource;
+      }
     });
     this.formFields = fields;
     this.allFormFields = fields;
@@ -103,6 +107,11 @@ export class ModelFormComponent implements OnInit {
     const emitVal: SelectEmitObj = new SelectEmitObj();
     emitVal.field = fieldConfig;
     if (fieldConfig.control.value) {
+      // Filter Child Field Data
+      if (fieldConfig.childField) {
+        const childField = this.formFields.find((c) => c.name === fieldConfig.childField.name);
+        childField.dataSource = childField.allDataSource.filter((d) => d[fieldConfig.childField.valueField] === fieldConfig.control.value);
+      }
       if (fieldConfig.type === 'multiselect') {
         const valArr = [];
         fieldConfig.control.value.forEach((v) => {

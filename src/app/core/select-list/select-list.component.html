@@ -1,0 +1,7 @@
+<ion-list>
+  <ion-list-header *ngIf="listHasHeader">Characters</ion-list-header>
+  <ion-item *ngFor="let item of listItems">
+    <ion-label>{{item[displayFieldName]}}</ion-label>
+    <ion-checkbox color="primary" [checked]="isSelected(item)" (ionChange)="itemSelectionToggle(item)" slot="start"></ion-checkbox>
+  </ion-item>
+</ion-list>

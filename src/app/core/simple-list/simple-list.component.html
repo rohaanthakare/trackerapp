@@ -1,3 +1,40 @@
-<p>
-  simple-list works!
-</p>
+<ion-list>
+  <ion-list-header class="list-header-custom" *ngIf="!noToolbar">
+    <ion-label color="primary">{{listTitle}}</ion-label>
+    <ng-container *ngIf="hasOnlyCreateAction">
+      <a href="javascript:" (click)="createGroceryItem()" style="margin-right: 15px;">
+        <i class="fas fa-plus"></i>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="!hasOnlyCreateAction">
+      <a href="javascript:" (click)="showAllActionPopover($event)" style="margin-right: 25px;">
+        <i class="fas fa-ellipsis-v"></i>
+      </a>
+    </ng-container>
+  </ion-list-header>  
+  <ng-container *ngIf="listItems.length === 0">
+    <ion-item color="light">
+      <ion-label>
+        No items added yet.
+      </ion-label>
+    </ion-item>
+  </ng-container>
+  <ng-container *ngIf="listItems.length !== 0">
+    <ng-container *ngIf="noDetails">
+      <ion-item *ngFor="let item of listItems">
+        <ion-label>
+          {{item[displayFieldName]}}
+        </ion-label>
+        <ion-note slot="end" [color]="item.noteColor" *ngIf="hasNote" style="font-size: 11pt;">{{item.noteText}}</ion-note>
+      </ion-item>
+    </ng-container>
+    <ng-container *ngIf="!noDetails">
+      <ion-item button (click)="itemClicked(item)" detail *ngFor="let item of listItems">
+        <ion-label>
+          {{item[displayFieldName]}}
+        </ion-label>
+        <ion-note slot="end" [color]="item.noteColor" *ngIf="hasNote" style="font-size: 11pt;">{{item.noteText}}</ion-note>
+      </ion-item>
+    </ng-container>
+  </ng-container>
+</ion-list>

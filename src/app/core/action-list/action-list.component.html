@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-list-header>Actions</ion-list-header>
+  <ion-item button *ngFor="let button of buttons" (click)="onButtonClick(button)">
+    {{button.viewTitle}}
+  </ion-item>
+</ion-list>
