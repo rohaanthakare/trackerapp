@@ -2,3 +2,15 @@
     font-size: 15px;
     color: #676767;
 }
+
+.disable-action-sheet-btns {
+    cursor: not-allowed;
+    background-color: #FFFFFF !important;
+    color: #CDCDCD !important;
+}
+
+.disable-action-sheet-btns > * { pointer-events:none; }
+
+.disable-action-sheet-btns .action-sheet-icon.sc-ion-action-sheet-md {
+    color: #CDCDCD !important;
+}

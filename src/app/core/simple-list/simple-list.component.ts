@@ -60,26 +60,37 @@ export class SimpleListComponent implements OnInit {
   }
 
   async showAllActionPopover(ev) {
-    const popover = await this.popoverCtrl.create({
-      component: ActionListComponent,
-      translucent: true,
-      event: ev,
-      componentProps: {
-        buttons: this.toolbarActions
+    const actionButtons = [];
+    actionButtons.push({
+      text: 'Cancel',
+      icon: 'close',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
       }
     });
 
-    popover.onDidDismiss().then((button: any) => {
-      if (button.data) {
-        if (button.data.viewType !== 'custom') {
-          this.router.navigate([button.data.viewRoute]);
-        } else {
-          this.customButtonClicked.emit(button.data);
+    this.toolbarActions.forEach((b) => {
+      const newButton = {
+        text: b.viewTitle,
+        icon: b.mobileIconClass,
+        handler: () => {
+          if (b.viewType !== 'custom') {
+            this.router.navigate([b.viewRoute]);
+          } else {
+            this.customButtonClicked.emit(b);
+          }
         }
-      }
+      };
+      actionButtons.push(newButton);
     });
 
-    popover.present();
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Actions',
+      cssClass: 'my-custom-class',
+      buttons: actionButtons
+    });
+    await actionSheet.present();
   }
 
 }

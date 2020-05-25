@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FinanceService } from 'src/app/services/finance.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ActionSheetController } from '@ionic/angular';
@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/services/notification.service';
   selector: 'app-transaction-list',
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TransactionListComponent implements OnInit {
   transactions = [];
@@ -58,18 +59,25 @@ export class TransactionListComponent implements OnInit {
   }
 
   async showActionsSheet(item) {
+    let disabledClass;
+    if (item.isReverted || item.transactionCategory.configCode === 'REVERT') {
+      disabledClass = 'disable-action-sheet-btns';
+    }
     const actionSheet = await this.actionSheetController.create({
-      header: 'Transactions',
+      header: 'Actions',
       buttons: [{
         text: 'Revert Transaction',
         icon: 'trash',
+        cssClass: disabledClass,
         handler: () => {
-          this.financeService.revertTransaction(item._id).subscribe(
-            response => {
-              this.notification.successNotification('Transation reverted successfully');
-              this.getTransactions();
-            }
-          );
+          if (!disabledClass) {
+            this.financeService.revertTransaction(item._id).subscribe(
+              response => {
+                this.notification.successNotification('Transation reverted successfully');
+                this.getTransactions();
+              }
+            );
+          }
         }
       }, {
         text: 'Cancel',

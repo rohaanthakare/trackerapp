@@ -8,9 +8,25 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item><i class="fas fa-user mr-1"></i>Profile</ion-item>
-      <ion-item><i class="fas fa-cogs mr-1"></i>Settings</ion-item>
-      <ion-item button (click)="logout()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</ion-item>
+      <ion-item>
+        <ion-label color="primary">
+          Profile
+        </ion-label>
+        <ion-icon slot="start" name="person" color="primary">
+        </ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">
+          Settings
+        </ion-label>
+        <ion-icon slot="start" name="settings" color="primary"></ion-icon>
+      </ion-item>
+      <ion-item button (click)="logout()">
+        <ion-label color="primary">
+          Logout
+        </ion-label>
+        <ion-icon name="power" color="primary" slot="start"></ion-icon>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -26,13 +42,10 @@
   <ion-content>
     <ion-list>
       <ion-item button *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
-        <span *ngIf="!menu.iconClass.includes('fas')">
-          <i class="material-icons">{{menu.iconClass}}</i>
-        </span>
-        <span *ngIf="menu.iconClass.includes('fas')">
-            <i class="{{menu.iconClass}} mr-1"></i>
-        </span>
-        {{menu.viewTitle}}
+        <ion-label color="primary">
+          {{menu.viewTitle}}
+        </ion-label>
+        <ion-icon [name]="menu.mobileIconClass" color="primary" slot="start"></ion-icon>
       </ion-item>
     </ion-list>
   </ion-content>
