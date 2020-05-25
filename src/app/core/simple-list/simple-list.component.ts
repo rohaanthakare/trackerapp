@@ -17,6 +17,9 @@ export class SimpleListComponent implements OnInit {
   @Input() listItems = [];
   @Input() noToolbar: boolean;
   @Input() noDetails: boolean;
+  @Input() hasGrouping: boolean;
+  @Input() groupLabelField: string;
+  @Input() idColumn: string;
   toolbarActions = [];
   hasOnlyCreateAction = true;
 
@@ -30,7 +33,7 @@ export class SimpleListComponent implements OnInit {
     this.masterViewService.getToolbarActions(this.viewCode).subscribe(
       (response: any) => {
         this.toolbarActions = response.actions;
-        this.toolbarActions = this.toolbarActions.filter((a) => a.viewType !== 'edit');
+        // this.toolbarActions = this.toolbarActions.filter((a) => a.viewType !== 'edit');
         if (this.toolbarActions.length > 2) {
           this.hasOnlyCreateAction = false;
         } else {
@@ -51,12 +54,38 @@ export class SimpleListComponent implements OnInit {
   }
 
   loadListData(data, count?) {
+    if (this.hasGrouping) {
+      data = this.insertGroupHeaders(data);
+    }
     this.listItems = data;
     this.dataLoaded.emit();
   }
 
+  insertGroupHeaders(data) {
+    const returnData = [];
+    let oldGroupLabel = data[0][this.groupLabelField];
+    returnData.push({
+      groupHeader: oldGroupLabel
+    });
+    data.forEach((d) => {
+      if (oldGroupLabel !== d[this.groupLabelField]) {
+        oldGroupLabel = d[this.groupLabelField];
+        returnData.push({
+          groupHeader: oldGroupLabel
+        });
+      }
+      returnData.push(d);
+    });
+    return returnData;
+  }
+
   itemClicked(item) {
-    console.log('Inside Item Clicked');
+    this.idColumn = (this.idColumn) ? this.idColumn : '_id';
+    this.toolbarActions.forEach((b) => {
+      if (b.viewType === 'edit') {
+        this.router.navigate([b.viewRoute + '/' + item[this.idColumn]]);
+      }
+    });
   }
 
   async showAllActionPopover(ev) {
@@ -91,6 +120,14 @@ export class SimpleListComponent implements OnInit {
       buttons: actionButtons
     });
     await actionSheet.present();
+  }
+
+  createItem() {
+    this.toolbarActions.forEach((b) => {
+      if (b.viewType === 'create') {
+        this.router.navigate([b.viewRoute]);
+      }
+    });
   }
 
 }

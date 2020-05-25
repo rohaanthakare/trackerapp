@@ -1,27 +1,2 @@
-<ion-list>
-  <ion-list-header class="list-header-custom">
-    <ion-label color="primary">Contacts</ion-label>
-    <a href="javascript:" (click)="createContact()" style="margin-right: 15px;">
-      <i class="fas fa-plus"></i>
-    </a>
-  </ion-list-header>  
-  <ng-container *ngIf="contacts.length === 0">
-    <ion-item color="light">
-      <ion-label>
-        No contacts added yet.
-      </ion-label>
-    </ion-item>
-  </ng-container>
-  <ng-container *ngIf="contacts.length !== 0">
-    <ion-item button (click)="itemClicked(contact)" detail *ngFor="let contact of contacts">
-      <ion-avatar slot="start">
-        <img src="../../../assets/icon/user.png">
-      </ion-avatar>
-      <ion-label>
-        <h3 style="font-size: 13pt;">{{contact.firstName}} {{contact.lastName}}</h3>
-        <p><i class="fas fa-mobile-alt mr-1"></i>{{contact.mobileNo}}</p>
-        <p><i class="fas fa-envelope mr-1"></i>{{contact.email}}</p>
-      </ion-label>
-    </ion-item>  
-  </ng-container>
-</ion-list>
+<app-simple-list listTitle="Contacts" displayFieldName="displayName" viewCode="CONTACT_LIST" 
+  hasNote="false" hasGrouping="true" groupLabelField="groupField"></app-simple-list>
