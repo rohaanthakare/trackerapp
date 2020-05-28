@@ -61,4 +61,12 @@ export class UserService {
   getDashboardData() {
     return this.http.get(`${environment.baseUrl}/api/get_dashboard_data`);
   }
+
+  getUserProfile(userId) {
+    return this.http.get(`${environment.baseUrl}/api/user_profile/${userId}`);
+  }
+
+  updateUserProfile(userId, user) {
+    return this.http.put(`${environment.baseUrl}/api/user_profile/${userId}`, user);
+  }
 }

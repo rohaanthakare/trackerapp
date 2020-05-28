@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { MasterViewService } from '../services/master-view.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { HelperService } from '../services/helper.service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,13 @@ import { AuthService } from '../services/auth.service';
 export class HomePage implements OnInit {
   menus: any;
   allMenus: any;
+  displayName: string;
   trackerMenuTitle = `<i class="fas fa-cog mr-1"></i>Menu`;
   constructor(private menuCtrl: MenuController, private masterView: MasterViewService, private router: Router,
-              private authService: AuthService) {}
+              private authService: AuthService, private helperService: HelperService) {}
 
   ngOnInit() {
+    this.displayName = this.helperService.getDisplayName(this.authService.getCurrentUser());
     this.masterView.getNavigationMenu().subscribe(
       (response: any) => {
         this.menus = response.menus;
@@ -51,5 +54,10 @@ export class HomePage implements OnInit {
       this.router.navigate([menu.viewRoute]);
       this.menuCtrl.close();
     }
+  }
+
+  openProfile() {
+    this.menuCtrl.close();
+    this.router.navigate(['home/profile']);
   }
 }

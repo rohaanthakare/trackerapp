@@ -87,4 +87,17 @@ export class HelperService {
       return null;
     }
   }
+
+  getDisplayName(user) {
+    let displayName = '';
+    if (user.firstName) {
+        displayName = this.convertToTitleCase(user.firstName);
+        if (user.lastName) {
+            displayName = displayName + ' ' + this.convertToTitleCase(user.lastName);
+        }
+    } else {
+        displayName = this.convertToTitleCase(user.username);
+    }
+    return displayName;
+  }
 }

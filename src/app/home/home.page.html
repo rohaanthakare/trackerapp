@@ -8,7 +8,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item>
+      <ion-item button (click)="openProfile()">
         <ion-label color="primary">
           Profile
         </ion-label>
@@ -41,6 +41,12 @@
   </ion-header>
   <ion-content>
     <ion-list>
+      <ion-item color="light">
+        <ion-avatar slot="start" style="width: 50px;height: 50px;">
+          <img src="assets/icon/user.png">
+        </ion-avatar>
+        <ion-label color="primary">{{displayName}}</ion-label>
+      </ion-item>
       <ion-item button *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
         <ion-label color="primary">
           {{menu.viewTitle}}
@@ -64,7 +70,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title style="text-align: center;">
-      <img src="../../assets/logos/tracker_light.png" style="width:50%">
+      <img src="../../assets/logos/tracker_light.png" style="width:60%">
     </ion-title>
   </ion-toolbar>
 

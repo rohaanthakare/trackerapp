@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -21,6 +22,9 @@ const routes: Routes = [
     }, {
       path: 'dashboard',
       component: DashboardComponent
+    }, {
+      path: 'profile',
+      component: ProfileComponent
     }, {
       path: 'password',
       loadChildren: () => import('./password/password.module').then( m => m.PasswordModule)

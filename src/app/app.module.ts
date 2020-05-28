@@ -19,12 +19,14 @@ import { HomePageModule } from './home/home.module';
 import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent, WelcomeComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent, WelcomeComponent, ProfileComponent],
   entryComponents: [],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
-    IonicModule.forRoot(), AppRoutingModule, HomePageModule],
+    IonicModule.forRoot(), AppRoutingModule, HomePageModule, CoreModule],
   providers: [
     StatusBar,
     SplashScreen, CurrencyPipe, DatePipe,
