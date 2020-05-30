@@ -8,6 +8,9 @@ export class GlobalConstants {
     public static SINGLE_COLOR = {
         domain: ['#3F51B5']
     };
+    public static SINGLE_TERTIARY = {
+        domain: ['#D2D6EF']
+    };
     public static MONTHS_MMM = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 }
 

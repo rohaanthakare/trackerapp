@@ -37,7 +37,6 @@ export class DashboardComponent implements OnInit {
     this.userService.getDashboardData().subscribe(
       (response: any) => {
         this.prepareAccountBalanceChartData(response.accounts);
-        this.createBalanceChart(response.expenseHistory);
         this.prepareExpenseSplitData(response.expenseSplit);
         if (response.financeProfile) {
           this.prepareBudgetStatus(response.financeProfile.budgetConfig);
@@ -108,13 +107,18 @@ export class DashboardComponent implements OnInit {
     const chartLabels = [];
     const chartData = [];
     const colors = [];
+    let maxValue = 0;
     data.forEach((d) => {
       const labelEle = GlobalConstants.MONTHS_MMM[d._id.month - 1] + ' - ' + d._id.year;
       chartLabels.push(labelEle);
+      if (d.total > maxValue) {
+        maxValue = d.total;
+      }
       const dataEle = d.total;
       chartData.push(dataEle);
       colors.push(GlobalConstants.SINGLE_COLOR.domain);
     });
+    const chartStepSize = maxValue / 5;
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
@@ -125,16 +129,25 @@ export class DashboardComponent implements OnInit {
             data: chartData,
             backgroundColor: colors,
             borderColor: colors,
-            borderWidth: 1
+            borderWidth: 0
           }
         ]
       },
       options: {
+        maintainAspectRatio: false,
+        legend: {
+          display: true,
+          labels: {
+            fontColor: GlobalConstants.SINGLE_COLOR.domain
+          }
+        },
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
+                stepSize: chartStepSize,
+                fontColor: GlobalConstants.SINGLE_COLOR.domain
               }
             }
           ]
