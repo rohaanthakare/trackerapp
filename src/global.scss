@@ -24,3 +24,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.list-header-custom {
+    font-weight: bold;
+    font-size: 15pt;
+}
+
+.tracker-scroll {
+    overflow-y: auto;
+}

@@ -28,6 +28,13 @@ export class UserService {
     });
   }
 
+  activateUserByOtp(userId: any, otp: any) {
+    return this.http.post<any>(`${environment.baseUrl}/api/activate_by_otp`, {
+      id: userId,
+      user_otp: otp
+    });
+  }
+
   uploadUsers(rows, moduleDetails: DataLoadModule, dataLoaderCmp) {
     return from(rows).pipe(
       concatMap(currentRow => {
@@ -37,7 +44,7 @@ export class UserService {
         userObj.emailId = currentRow[2];
         userObj.mobileNo = currentRow[3];
         userObj.role = currentRow[4];
-        userObj.userStatus = currentRow[5];
+        userObj.status = currentRow[5];
         return this.registerUser(userObj);
       })
     );
@@ -49,5 +56,17 @@ export class UserService {
 
   resetPassword(userDetails) {
     return this.http.put<any>(`${environment.baseUrl}/api/reset_password`, userDetails);
+  }
+
+  getDashboardData() {
+    return this.http.get(`${environment.baseUrl}/api/get_dashboard_data`);
+  }
+
+  getUserProfile(userId) {
+    return this.http.get(`${environment.baseUrl}/api/user_profile/${userId}`);
+  }
+
+  updateUserProfile(userId, user) {
+    return this.http.put(`${environment.baseUrl}/api/user_profile/${userId}`, user);
   }
 }

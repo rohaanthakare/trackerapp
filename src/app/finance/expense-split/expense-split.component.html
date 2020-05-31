@@ -1,0 +1,31 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Expense Split</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()" type="button">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label color="primary" style="font-size: 15pt;">Total Amount - <i class='fas fa-rupee-sign mr-1'></i>{{transAmountDisplay}}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let user of selectedUsers">
+        <ion-label class="ion-text-wrap">
+          <ion-text>
+            <h3 style="font-size: 12pt;margin-top: 5px;">{{user.firstName}} (Paying for - {{user.selectionCount}} Person)</h3>
+          </ion-text>
+          <ion-text color="primary">
+            <h3 style="font-size: 12pt;">User Share - <i class='fas fa-rupee-sign mr-1'></i>{{user.transactionAmountDisplay}}</h3>
+          </ion-text>
+        </ion-label>
+      <ion-button expand="block" (click)="removeUser(user)">
+        <ion-icon name="remove-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button expand="block" (click)="addUser(user)">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

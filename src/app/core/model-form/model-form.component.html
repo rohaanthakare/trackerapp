@@ -1,0 +1,83 @@
+<form [formGroup]="formGroup">
+  <ion-list>
+    <ion-list-header class="list-header-custom">
+      <ion-label color="primary">{{formTitle}}</ion-label>
+    </ion-list-header>
+    <ng-container *ngFor="let fieldConfig of formFields" [ngSwitch]="fieldConfig.type">
+      <ion-item *ngSwitchCase="'select'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-select placeholder="Select {{fieldConfig.label}}" [formControlName]="fieldConfig.name" (ionChange)="selectValueChanged(fieldConfig)">
+          <ion-select-option [value]="data[fieldConfig.valueField]" *ngFor="let data of fieldConfig.dataSource">
+            <ng-container *ngIf="fieldConfig.renderer">
+              {{fieldConfig.renderer(data)}}
+            </ng-container>
+            <ng-container *ngIf="!fieldConfig.renderer">
+              {{data[fieldConfig.displayField]}}
+            </ng-container>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngSwitchCase="'multiselect'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-select multiple="true" placeholder="Select {{fieldConfig.label}}" [formControlName]="fieldConfig.name" (ionChange)="selectValueChanged(fieldConfig)">
+          <ion-select-option [value]="data[fieldConfig.valueField]" *ngFor="let data of fieldConfig.dataSource">
+            <ng-container *ngIf="fieldConfig.renderer">
+              {{fieldConfig.renderer(data)}}
+            </ng-container>
+            <ng-container *ngIf="!fieldConfig.renderer">
+              {{data[fieldConfig.displayField]}}              
+            </ng-container>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngSwitchCase="'number'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-input type="number" [formControlName]="fieldConfig.name"></ion-input>
+      </ion-item>
+      <ion-item *ngSwitchCase="'date'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-datetime [formControlName]="fieldConfig.name"></ion-datetime>
+      </ion-item>
+      <ion-item *ngSwitchCase="'tel'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-input type="tel" [formControlName]="fieldConfig.name"></ion-input>
+      </ion-item>
+      <ion-item *ngSwitchCase="'email'">
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-input type="email" [formControlName]="fieldConfig.name"></ion-input>
+      </ion-item>
+      <ion-item *ngSwitchCase="'action'">
+        <ion-button color="primary" expand="block" (click)="fieldConfig.handler(fieldConfig)" type="button">
+          <i [class]="fieldConfig.iconClass"></i>{{fieldConfig.label}}
+        </ion-button>
+      </ion-item>
+      <ion-item *ngSwitchDefault>
+        <ion-label position="floating">
+          {{fieldConfig.label}}
+        </ion-label>
+        <ion-input type="text" [formControlName]="fieldConfig.name"></ion-input>
+      </ion-item>
+    </ng-container>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button color="primary" expand="block" (click)="saveForm()">
+            <i class="fas fa-save mr-1"></i>Save
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</form>

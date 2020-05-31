@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col size="4">
+        <img src="assets/icon/user.png">
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col size="6" style="text-align: center;">
+        <ion-text color="primary" style="font-size: 15pt;">
+          {{displayName}}
+        </ion-text>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-model-form #profileFormEle [formGroup]="profileForm" formTitle="Profile" (formSubmit)="saveProfile()"></app-model-form>
+</ion-content>

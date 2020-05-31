@@ -1,19 +1,81 @@
+<ion-menu side="end" menuId="settings" contentId="main">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        <i class="fas fa-cog mr-1"></i>Settings
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item button (click)="openProfile()">
+        <ion-label color="primary">
+          Profile
+        </ion-label>
+        <ion-icon slot="start" name="person" color="primary">
+        </ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">
+          Settings
+        </ion-label>
+        <ion-icon slot="start" name="settings" color="primary"></ion-icon>
+      </ion-item>
+      <ion-item button (click)="logout()">
+        <ion-label color="primary">
+          Logout
+        </ion-label>
+        <ion-icon name="power" color="primary" slot="start"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-menu side="start" menuId="trackerNav" contentId="main">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        <span [innerHTML]="trackerMenuTitle" (click)="onMenuClicked(undefined, true)"></span>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item color="light">
+        <ion-avatar slot="start" style="width: 50px;height: 50px;">
+          <img src="assets/icon/user.png">
+        </ion-avatar>
+        <ion-label color="primary">{{displayName}}</ion-label>
+      </ion-item>
+      <ion-item button *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
+        <ion-label color="primary">
+          {{menu.viewTitle}}
+        </ion-label>
+        <ion-icon [name]="menu.mobileIconClass" color="primary" slot="start"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
-      <ion-button>
+      <ion-button (click)="openSettings()">
+        <i class="fas fa-cog"></i>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="openTrackerNav()">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      Tracker
+    <ion-title style="text-align: center;">
+      <img src="../../assets/logos/tracker_light.png" style="width:60%">
     </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content id="main">
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>

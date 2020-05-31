@@ -1,0 +1,35 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Transactions ({{contact.firstName}} {{contact.lastName}})</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()" type="button">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label [color]="this.contact.settlementColor" style="font-size: 15pt;">{{contact.settlementType.configName}} - <i class='fas fa-rupee-sign mr-1'></i>{{contact.settlementAmtDisplay}}</ion-label>
+    </ion-list-header>
+    <ion-item detail="false" *ngFor="let trans of contactTransactions">
+      <ion-avatar slot="start">
+        <ion-text [color]="trans.transClass">
+          <i [class]='trans.transIcon' style="font-size: 25pt; position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+        </ion-text>
+        <!-- <img src='assets/icon/bank.jpg' alt="Not Found" onerror="this.src='assets/icon/bank.jpg'"> -->
+      </ion-avatar>
+      <ion-label>
+        <ion-text [color]="trans.transClass">
+          <h3 style="font-size: 13pt;">
+            <i class='fas fa-rupee-sign mr-1'></i>{{trans.contactTrans.transAmtDisplay}}
+            <label class="title-label-class">(on {{trans.transactionDate}})</label>
+          </h3>
+        </ion-text>
+        <p>
+          <b>Amount - <i class='fas fa-rupee-sign mr-1'></i>{{trans.transactionAmount}}</b>
+        </p>
+        <p>{{trans.transactionCategory.configName}} - {{trans.transactionSubCategory.configName}} - {{trans.transactionDetail}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

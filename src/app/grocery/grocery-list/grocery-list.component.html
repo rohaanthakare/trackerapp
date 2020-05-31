@@ -1,0 +1,6 @@
+<app-simple-list listTitle="Grocery" displayFieldName="name" viewCode="GROCERY_TRACKER" (customButtonClicked)="onCustomButtonClicked($event)"
+  hasNote="true"></app-simple-list>
+
+<ion-select ok-text="Share" hidden="true" #contactSelect (ionChange)="shareGroceryList()">
+  <ion-select-option [value]="contact._id" *ngFor="let contact of contacts">{{contact.name}}</ion-select-option>
+</ion-select>

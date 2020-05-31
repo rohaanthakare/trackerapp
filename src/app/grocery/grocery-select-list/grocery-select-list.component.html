@@ -1,0 +1,15 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{listTitle}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()" color="primary" type="button">{{actionName}}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-select-list *ngIf="!simpleList" [listItems]="items" displayFieldName="name" valueFieldName="_id" (selectionChanged)="onSelectionChanged($event)"
+    [singleSelect]="singleSelect"></app-select-list>
+  <ng-container *ngIf="simpleList">
+    <app-simple-list [listItems]="items" noToolbar="true" displayFieldName="name" noDetails="true"></app-simple-list>
+  </ng-container>
+</ion-content>

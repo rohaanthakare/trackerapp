@@ -7,7 +7,7 @@ export class User {
     middleName: string;
     lastName: string;
     role: string;
-    userStatus: string;
+    status: string;
 }
 
 export class UserRoles {
