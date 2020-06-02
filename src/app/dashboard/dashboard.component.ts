@@ -1,11 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MasterDataService } from '../services/master-data.service';
 import { CurrencyPipe } from '@angular/common';
-import { MasterViewService } from '../services/master-view.service';
-import { MenuController } from '@ionic/angular';
-import { Chart } from 'chart.js';
-import { GlobalConstants } from '../global/global-contants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,8 +10,6 @@ import { GlobalConstants } from '../global/global-contants';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  @ViewChild('barCanvas', {static: false}) barCanvas: ElementRef;
-  private barChart: Chart;
   budgetStatus = [];
   expenseSplit = [];
   expenseCategory = [];
@@ -23,7 +18,8 @@ export class DashboardComponent implements OnInit {
   moneyToGive: any;
   moneyToTake: any;
 
-  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe) { }
+  constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe,
+              private router: Router) { }
 
   ngOnInit() {
     this.masterDataService.getMasterDataForParent('EXPENSE_CATEGORY').subscribe(
@@ -103,56 +99,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  createBalanceChart(data) {
-    const chartLabels = [];
-    const chartData = [];
-    const colors = [];
-    let maxValue = 0;
-    data.forEach((d) => {
-      const labelEle = GlobalConstants.MONTHS_MMM[d._id.month - 1] + ' - ' + d._id.year;
-      chartLabels.push(labelEle);
-      if (d.total > maxValue) {
-        maxValue = d.total;
-      }
-      const dataEle = d.total;
-      chartData.push(dataEle);
-      colors.push(GlobalConstants.SINGLE_COLOR.domain);
-    });
-    const chartStepSize = maxValue / 5;
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: chartLabels,
-        datasets: [
-          {
-            label: 'Monthly Expense',
-            data: chartData,
-            backgroundColor: colors,
-            borderColor: colors,
-            borderWidth: 0
-          }
-        ]
-      },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: true,
-          labels: {
-            fontColor: GlobalConstants.SINGLE_COLOR.domain
-          }
-        },
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-                stepSize: chartStepSize,
-                fontColor: GlobalConstants.SINGLE_COLOR.domain
-              }
-            }
-          ]
-        }
-      }
-    });
+  widgetClicked(widget) {
+    this.router.navigate(['home/finance/balance-chart']);
   }
 }

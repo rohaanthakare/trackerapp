@@ -1,96 +1,74 @@
 <ion-content fullscreen color="primary">
   <form [formGroup]="registrationForm">
-    <ion-grid>
-      <ion-list style="background-color: #3f51b5;">
+    <ion-item color="primary">
+      <ion-grid>
         <ion-row style="padding-top: 20px; padding-bottom: 10px;">
           <ion-col></ion-col>
           <ion-col size="8">
-            <img src="../../assets/logos/tracker_light.png">
+            <img src="../../assets/logos/tracker_light-theme2.png">
           </ion-col>
           <ion-col></ion-col>
         </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary" class="mb-1">
-                <ion-label position="floating">
-                  Username
-                </ion-label>
-                <ion-input type="text" formControlName="username"></ion-input>
-              </ion-item>      
-              <ion-text class="err-message-container" color="danger" *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Username is required
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary" class="mb-1">
-                <ion-label position="floating">
-                  Password
-                </ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
-              </ion-item>
-              <ion-text class="err-message-container" color="danger" *ngIf="passwordCtrl.hasError('required') && passwordCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Password is required
-              </ion-text>
-              <ion-text class="err-message-container" color="danger" *ngIf="passwordCtrl.hasError('minlength') && usernameCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Password must be more than 6 charectars.
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary" class="mb-1">
-                <ion-label position="floating">
-                  Confirm Password
-                </ion-label>
-                <ion-input type="password" formControlName="confirmPassword"></ion-input>
-              </ion-item>
-              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Confirm Password is required
-              </ion-text>
-              <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.errors?.mustMatch && !confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Password does not match.
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary" class="mb-1">
-                <ion-label position="floating">
-                  Mobile No.
-                </ion-label>
-                <ion-input type="tel" formControlName="mobileNo"></ion-input>
-              </ion-item>
-              <ion-text class="err-message-container" color="danger" *ngIf="mobileNoCtrl.hasError('required') && mobileNoCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Mobile No. is required
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary" class="mb-1">
-                <ion-label position="floating">
-                  Email
-                </ion-label>
-                <ion-input type="email" formControlName="emailId"></ion-input>
-              </ion-item>
-              <ion-text class="err-message-container" color="danger" *ngIf="emailCtrl.hasError('required') && emailCtrl.touched">
-                <i class="fas fa-exclamation-circle mr-1"></i>Email is required
-              </ion-text>
-              <ion-text class="err-message-container" color="danger" *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
-                <i class="fas fa-exclamation-circle mr-1"></i>Please enter valid email address
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-button color="light" expand="block" (click)="register()">
-                <i class="fas fa-user-plus mr-1" style="margin-right: 5px;"></i>Register
-              </ion-button>    
-            </ion-col>
-          </ion-row>
-        </ion-list>
       </ion-grid>
+    </ion-item>
+    <ion-item color="primary" class="mb-1">
+      <ion-label position="floating">
+        Username
+      </ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
+    </ion-item>      
+    <ion-text class="err-message-container" color="danger" *ngIf="usernameCtrl.invalid && usernameCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Username is required
+    </ion-text>
+    <ion-item color="primary" class="mb-1">
+      <ion-label position="floating">
+        Password
+      </ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-text class="err-message-container" color="danger" *ngIf="passwordCtrl.hasError('required') && passwordCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Password is required
+    </ion-text>
+    <ion-text class="err-message-container" color="danger" *ngIf="passwordCtrl.hasError('minlength') && usernameCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Password must be more than 6 charectars.
+    </ion-text>
+    <ion-item color="primary" class="mb-1">
+      <ion-label position="floating">
+        Confirm Password
+      </ion-label>
+      <ion-input type="password" formControlName="confirmPassword"></ion-input>
+    </ion-item>
+    <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Confirm Password is required
+    </ion-text>
+    <ion-text class="err-message-container" color="danger" *ngIf="confirmPassCtrl.errors?.mustMatch && !confirmPassCtrl.hasError('required') && confirmPassCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Password does not match.
+    </ion-text>
+    <ion-item color="primary" class="mb-1">
+      <ion-label position="floating">
+        Mobile No.
+      </ion-label>
+      <ion-input type="tel" formControlName="mobileNo"></ion-input>
+    </ion-item>
+    <ion-text class="err-message-container" color="danger" *ngIf="mobileNoCtrl.hasError('required') && mobileNoCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Mobile No. is required
+    </ion-text>
+    <ion-item color="primary" class="mb-1">
+      <ion-label position="floating">
+        Email
+      </ion-label>
+      <ion-input type="email" formControlName="emailId"></ion-input>
+    </ion-item>
+    <ion-text class="err-message-container" color="danger" *ngIf="emailCtrl.hasError('required') && emailCtrl.touched">
+      <i class="fas fa-exclamation-circle mr-1"></i>Email is required
+    </ion-text>
+    <ion-text class="err-message-container" color="danger" *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
+      <i class="fas fa-exclamation-circle mr-1"></i>Please enter valid email address
+    </ion-text>
+    <section>
+      <ion-button style="margin: 10px" color="success" expand="block" (click)="register()">
+        <i class="fas fa-user-plus mr-1" style="margin-right: 5px;"></i>Register
+      </ion-button>
+    </section>
   </form>
 </ion-content>

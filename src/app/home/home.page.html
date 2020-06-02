@@ -6,28 +6,26 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item button (click)="openProfile()">
-        <ion-label color="primary">
-          Profile
-        </ion-label>
-        <ion-icon slot="start" name="person" color="primary">
-        </ion-icon>
-      </ion-item>
-      <ion-item>
-        <ion-label color="primary">
-          Settings
-        </ion-label>
-        <ion-icon slot="start" name="settings" color="primary"></ion-icon>
-      </ion-item>
-      <ion-item button (click)="logout()">
-        <ion-label color="primary">
-          Logout
-        </ion-label>
-        <ion-icon name="power" color="primary" slot="start"></ion-icon>
-      </ion-item>
-    </ion-list>
+  <ion-content color="success">
+    <ion-item lines="full" color="success" button (click)="openProfile()">
+      <ion-label color="primary">
+        Profile
+      </ion-label>
+      <ion-icon slot="start" name="person" color="primary">
+      </ion-icon>
+    </ion-item>
+    <ion-item lines="full" color="success">
+      <ion-label color="primary">
+        Settings
+      </ion-label>
+      <ion-icon slot="start" name="settings" color="primary"></ion-icon>
+    </ion-item>
+    <ion-item lines="full" color="success" button (click)="logout()">
+      <ion-label color="primary">
+        Logout
+      </ion-label>
+      <ion-icon name="power" color="primary" slot="start"></ion-icon>
+    </ion-item>
   </ion-content>
 </ion-menu>
 
@@ -39,26 +37,36 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item color="light">
-        <ion-avatar slot="start" style="width: 50px;height: 50px;">
-          <img src="assets/icon/user.png">
-        </ion-avatar>
-        <ion-label color="primary">{{displayName}}</ion-label>
-      </ion-item>
-      <ion-item button *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
-        <ion-label color="primary">
-          {{menu.viewTitle}}
-        </ion-label>
-        <ion-icon [name]="menu.mobileIconClass" color="primary" slot="start"></ion-icon>
-      </ion-item>
-    </ion-list>
+  <ion-content color="success">
+    <ion-item lines="full" color="success">
+      <ion-grid>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col>
+            <img style="border: 3px solid; border-radius: 20%;" src="assets/icon/user-primary.png">
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="text-align: center;">
+            <ion-text color="primary" style="font-size: 20px;">
+              {{displayName}}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>  
+    </ion-item>
+    <ion-item lines="full" button color="success" *ngFor="let menu of menus;" (click)="onMenuClicked(menu)">
+      <ion-label color="primary">
+        {{menu.viewTitle}}
+      </ion-label>
+      <ion-icon [name]="menu.mobileIconClass" color="primary" slot="start"></ion-icon>
+    </ion-item>
   </ion-content>
 </ion-menu>
 
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" style="border-bottom: 2px solid #6FFFE9;">
     <ion-buttons slot="secondary">
       <ion-button (click)="openSettings()">
         <i class="fas fa-cog"></i>
@@ -70,7 +78,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title style="text-align: center;">
-      <img src="../../assets/logos/tracker_light.png" style="width:60%">
+      <img src="../../assets/logos/tracker_light-theme2.png" style="width:60%">
     </ion-title>
   </ion-toolbar>
 

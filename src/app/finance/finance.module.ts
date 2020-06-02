@@ -15,6 +15,7 @@ import { CoreModule } from '../core/core.module';
 import { IonicModule } from '@ionic/angular';
 import { ExpenseSplitComponent } from './expense-split/expense-split.component';
 import { InvestmentFormComponent } from './investment-form/investment-form.component';
+import { BalanceChartComponent } from './balance-chart/balance-chart.component';
 
 const routes: Routes = [{
   path: '',
@@ -57,13 +58,16 @@ const routes: Routes = [{
   }, {
     path: 'investment',
     component: InvestmentFormComponent
+  }, {
+    path: 'balance-chart',
+    component: BalanceChartComponent
   }]
 }];
 
 @NgModule({
   declarations: [AccountListComponent, AccountFormComponent, TransactionListComponent, DepositFormComponent, WithdrawFormComponent,
   TransferFormComponent, ExpenseFormComponent, BudgetManagerComponent, SettlementListComponent, ContactTransactionsComponent,
-  ExpenseSplitComponent, InvestmentFormComponent],
+  ExpenseSplitComponent, InvestmentFormComponent, BalanceChartComponent],
   imports: [
     CommonModule, RouterModule.forChild(routes), CoreModule, IonicModule.forRoot()
   ],

@@ -1,38 +1,40 @@
-<div class="ion-padding tracker-scroll dashboard-class">
+<div class="ion-padding tracker-scroll dashboard-class" style="background-color: #1C2541;">
   <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <ion-card style="margin: 0px;">
-          <ion-card-header style="padding: 0px;">
-            <table class="widget-class">
-              <tr>
-                <td>
-                  <img src="../../assets/icon/wallet-final.png">
-                </td>
-                <td>
-                  <ion-card-subtitle style="margin-bottom: 5px;">
-                    <ion-text color="primary">
-                      BALANCE
-                    </ion-text>
-                  </ion-card-subtitle>
-                  <ion-card-title style="font-size: 15pt;">
-                    <ion-text color="primary">
-                      <i class='fas fa-rupee-sign mr-1'></i>{{totalBalance}}
-                    </ion-text>
-                  </ion-card-title>
-                </td>
-              </tr>
-            </table>
-          </ion-card-header>
-        </ion-card>
+        <a href="javascript:" (click)="widgetClicked('balanceWidget')">
+          <ion-card class="widget-card">
+            <ion-card-header style="padding: 0px;">
+              <table class="widget-class">
+                <tr>
+                  <td>
+                    <img src="../../assets/icon/wallet-light-theme2.png">
+                  </td>
+                  <td>
+                    <ion-card-subtitle style="margin-bottom: 5px;">
+                      <ion-text color="primary">
+                        BALANCE
+                      </ion-text>
+                    </ion-card-subtitle>
+                    <ion-card-title style="font-size: 15pt;">
+                      <ion-text color="primary">
+                        <i class='fas fa-rupee-sign mr-1'></i>{{totalBalance}}
+                      </ion-text>
+                    </ion-card-title>
+                  </td>
+                </tr>
+              </table>
+            </ion-card-header>
+          </ion-card>
+        </a>
       </ion-col>
       <ion-col size="12">
-        <ion-card style="margin: 0px;">
+        <ion-card class="widget-card">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>
                 <td>
-                  <img src="../../assets/icon/expense.png">
+                  <img src="../../assets/icon/expense-white.png">
                 </td>
                 <td>
                   <ion-card-subtitle style="margin-bottom: 5px;">
@@ -54,21 +56,21 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-card style="margin: 0px;">
+        <ion-card class="widget-card">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>
                 <td>
-                  <img src="../../assets/icon/money-to-take.png">
+                  <img src="../../assets/icon/money-to-take-white.png">
                 </td>
                 <td>
                   <ion-card-subtitle style="margin-bottom: 5px;">
-                    <ion-text color="primary">
+                    <ion-text>
                       MONEY TO TAKE
                     </ion-text>
                   </ion-card-subtitle>
                   <ion-card-title style="font-size: 15pt;">
-                    <ion-text color="primary">
+                    <ion-text>
                       <i class='fas fa-rupee-sign mr-1'></i>{{moneyToTake}}
                     </ion-text>
                   </ion-card-title>
@@ -79,12 +81,12 @@
         </ion-card>
       </ion-col>
       <ion-col size="12">
-        <ion-card style="margin: 0px;">
+        <ion-card class="widget-card">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>
                 <td>
-                  <img src="../../assets/icon/money-to-give.png">
+                  <img src="../../assets/icon/money-to-give-white.png">
                 </td>
                 <td>
                   <ion-card-subtitle style="margin-bottom: 5px;">
@@ -105,52 +107,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        Settlements
-      </ion-card-title>
-      <ion-card-content style="padding: 0px;">
-        <ion-item>
-          <ion-label></ion-label>
-          <ion-note slot="end" color="success" style="font-weight: bold;font-size: 10pt;">
-            <i class='fas fa-rupee-sign mr-1'></i>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Money to Give</ion-label>
-          <ion-note slot="end" color="danger" style="font-weight: bold;font-size: 10pt;">
-            <i class='fas fa-rupee-sign mr-1'></i>{{moneyToGive}}
-          </ion-note>
-        </ion-item>
-      </ion-card-content>
-    </ion-card-header>
-  </ion-card> -->
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-title style="font-size: 15pt;">
-        <ion-text color="primary">
-          <i class="fas fa-chart-bar mr-1"></i>Expense History
-        </ion-text>
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content style="height: 250px;">
-      <canvas #barCanvas style="height: 100%;"></canvas>
-    </ion-card-content>
-  </ion-card>
-  <ion-card style="background-color: #FFFFFF;">
-    <ion-card-header>
-      <ion-card-title>
-        <ion-text color="primary">
-          <i class="fas fa-tachometer-alt mr-1"></i>Budget Status
-        </ion-text>
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list *ngFor="let catg of budgetStatus" style="padding-top: 0px; padding-bottom:0px;">
-        <ion-list-header>{{catg.category}}</ion-list-header>
-        <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
-      </ion-list>
-    </ion-card-content>
-  </ion-card> -->
 </div>

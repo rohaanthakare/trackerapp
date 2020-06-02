@@ -1,49 +1,35 @@
 <ion-content fullscreen color="primary">
   <form [formGroup]="loginForm">
-    <ion-grid>
-      <ion-list style="background-color: #3f51b5;">
-        <ion-row style="padding-top: 40px; padding-bottom: 20px;">
+    <ion-item color="primary">
+      <ion-grid>
+        <ion-row style="padding-top: 50px; padding-bottom: 30px;">
           <ion-col></ion-col>
           <ion-col size="8">
-            <img src="../../assets/logos/tracker_light.png">
+            <img src="../../assets/logos/tracker_light-theme2.png">
           </ion-col>
           <ion-col></ion-col>
         </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary">
-                <ion-label position="floating">
-                  Username
-                </ion-label>
-                <ion-input type="text" formControlName="username"></ion-input>
-              </ion-item>      
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item color="primary">
-                <ion-label position="floating">
-                  Password
-                </ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-button color="light" expand="block" (click)="login()">
-                <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login
-              </ion-button>    
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-button color="light" expand="block" (click)="register()">
-                <i class="fas fa-user-plus mr-1" style="margin-right: 5px;"></i>New User
-              </ion-button>    
-            </ion-col>
-          </ion-row>
-        </ion-list>
       </ion-grid>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-label position="floating">
+        Username
+      </ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
+    </ion-item>
+    <ion-item color="primary">
+      <ion-label position="floating">
+        Password
+      </ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <section>
+      <ion-button style="margin: 10px" color="success" expand="block" (click)="login()">
+        <i class="fas fa-sign-in-alt" style="margin-right: 5px;"></i>Login
+      </ion-button>
+      <ion-button style="margin: 10px" color="success" expand="block" (click)="register()">
+        <i class="fas fa-user-plus mr-1" style="margin-right: 5px;"></i>New User
+      </ion-button>
+    </section>
   </form>
 </ion-content>
