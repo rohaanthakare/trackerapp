@@ -51,6 +51,31 @@
           </ion-card-header>
         </ion-card>
       </ion-col>
+      <ion-col size="12">
+        <ion-card class="widget-card" (click)="widgetClicked('budgetWidget')">
+          <ion-card-header style="padding: 0px;">
+            <table class="widget-class">
+              <tr>
+                <td>
+                  <img src="../../assets/icon/guage.png">
+                </td>
+                <td>
+                  <ion-card-subtitle style="margin-bottom: 5px;">
+                    <ion-text color="primary">
+                      BUDGET UTILIZATION
+                    </ion-text>
+                  </ion-card-subtitle>
+                  <ion-card-title style="font-size: 15pt;">
+                    <ion-text color="primary">
+                      {{budgetUtilization}}%
+                    </ion-text>
+                  </ion-card-title>
+                </td>
+              </tr>
+            </table>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12">
@@ -95,6 +120,31 @@
                   <ion-card-title style="font-size: 15pt;">
                     <ion-text color="primary">
                       <i class='fas fa-rupee-sign mr-1'></i>{{moneyToGive}}
+                    </ion-text>
+                  </ion-card-title>
+                </td>
+              </tr>
+            </table>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="widget-card" (click)="widgetClicked('expenseWidget')">
+          <ion-card-header style="padding: 0px;">
+            <table class="widget-class">
+              <tr>
+                <td>
+                  <img src="../../assets/icon/oos-white.png">
+                </td>
+                <td>
+                  <ion-card-subtitle style="margin-bottom: 5px;">
+                    <ion-text color="primary">
+                      OUT OF STOCK ITEMS
+                    </ion-text>
+                  </ion-card-subtitle>
+                  <ion-card-title style="font-size: 15pt;">
+                    <ion-text color="primary">
+                      {{totalOutOfStockItems}}
                     </ion-text>
                   </ion-card-title>
                 </td>

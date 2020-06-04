@@ -1,0 +1,17 @@
+<ion-content color="primary">
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-text color="light">
+          <i class="fas fa-tachometer-alt mr-1"></i>Budget Status
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="padding: 15px;">
+      <ion-list *ngFor="let catg of budgetStatus" style="padding-top: 0px; padding-bottom:0px;">
+        <ion-list-header>{{catg.category}}</ion-list-header>
+        <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

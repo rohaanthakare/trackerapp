@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit {
   totalBalance: any;
   moneyToGive: any;
   moneyToTake: any;
+  budgetUtilization: any;
+  totalOutOfStockItems: any;
 
   constructor(private userService: UserService, private masterDataService: MasterDataService, private cp: CurrencyPipe,
               private router: Router) { }
@@ -34,9 +36,12 @@ export class DashboardComponent implements OnInit {
   getDashboardData() {
     this.userService.getDashboardData().subscribe(
       (response: any) => {
+        console.log('getDashboardData');
+        console.log(response);
         this.accounts = response.accounts;
         this.expenseSplit = response.expenseSplit;
         this.expenseHistory = response.expenseHistory;
+        this.totalOutOfStockItems = response.totalOutOfStockItems;
         this.prepareAccountBalanceChartData(response.accounts);
         this.prepareExpenseSplitData(response.expenseSplit);
         if (response.financeProfile) {
@@ -69,13 +74,21 @@ export class DashboardComponent implements OnInit {
     this.totalMonthlyExpense = this.cp.transform(this.totalMonthlyExpense, 'INR', '');
   }
 
+  calculateBudgetUtilization() {
+    console.log('Inside calculate budget status');
+  }
+
   prepareBudgetStatus(data) {
     this.budgetStatus = [];
+    let totalBudget = 0;
+    let totalSpent = 0;
     for (const key in data) {
       if (data[key] > 0) {
         const catg = this.expenseCategory.find((c) => c.configCode === key);
         const spentCfg = this.expenseSplit.find((c) => c.name === catg.configName);
         const spentAmt = (spentCfg) ? spentCfg.value : 0;
+        totalSpent = totalSpent + spentAmt;
+        totalBudget = totalBudget + data[key];
         const spentAmtLbl = this.cp.transform(spentAmt, 'INR', '');
         const allocatedLbl = this.cp.transform(data[key], 'INR', '');
         const spentPer = (data[key] - spentAmt) / data[key];
@@ -102,6 +115,8 @@ export class DashboardComponent implements OnInit {
         this.budgetStatus.push(catgEle);
       }
     }
+
+    this.budgetUtilization = ((totalSpent / totalBudget) * 100).toFixed(2);
   }
 
   async widgetClicked(widget) {
@@ -123,6 +138,15 @@ export class DashboardComponent implements OnInit {
         break;
       case 'settlements': {
         this.router.navigate(['home/finance/settlements']);
+        break;
+      }
+      case 'budgetWidget': {
+        this.router.navigate(['home/finance/budget-status'], {
+          queryParams: {
+            expenseSplit: JSON.stringify(this.expenseSplit),
+            expenseHistory: JSON.stringify(this.expenseHistory)
+          }
+        });
         break;
       }
     }

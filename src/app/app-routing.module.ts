@@ -8,6 +8,7 @@ import { ActivateComponent } from './activate/activate.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeGuard } from './services/home-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [HomeGuard]},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomePage,
+    canActivate: [AuthGuard],
     children: [{
       path: '',
       component: DashboardComponent

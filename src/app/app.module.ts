@@ -23,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CoreModule } from './core/core.module';
 import { FinanceModule } from './finance/finance.module';
 import { BalanceChartComponent } from './finance/balance-chart/balance-chart.component';
+import { ErrorInterceptor } from './services/error-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent, WelcomeComponent, ProfileComponent],
@@ -34,7 +35,8 @@ import { BalanceChartComponent } from './finance/balance-chart/balance-chart.com
     SplashScreen, CurrencyPipe, DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
