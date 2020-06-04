@@ -7,9 +7,10 @@ import { RegisterComponent } from './register/register.component';
 import { ActivateComponent } from './activate/activate.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
+import { HomeGuard } from './services/home-guard.service';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '', component: WelcomeComponent, canActivate: [HomeGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
   { path: 'activate-by-otp/:id', component: ActivateComponent},

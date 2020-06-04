@@ -20,6 +20,9 @@ export class HomePage implements OnInit {
               private authService: AuthService, private helperService: HelperService) {}
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.displayName = this.helperService.getDisplayName(this.authService.getCurrentUser());
     this.masterView.getNavigationMenu().subscribe(
       (response: any) => {
@@ -30,7 +33,6 @@ export class HomePage implements OnInit {
   }
 
   openSettings() {
-    // alert('settings clicked');
     this.menuCtrl.open('settings');
   }
 

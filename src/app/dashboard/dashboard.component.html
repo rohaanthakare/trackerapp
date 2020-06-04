@@ -2,34 +2,32 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12">
-        <a href="javascript:" (click)="widgetClicked('balanceWidget')">
-          <ion-card class="widget-card">
-            <ion-card-header style="padding: 0px;">
-              <table class="widget-class">
-                <tr>
-                  <td>
-                    <img src="../../assets/icon/wallet-white.png">
-                  </td>
-                  <td>
-                    <ion-card-subtitle style="margin-bottom: 5px;">
-                      <ion-text color="primary">
-                        BALANCE
-                      </ion-text>
-                    </ion-card-subtitle>
-                    <ion-card-title style="font-size: 15pt;">
-                      <ion-text color="primary">
-                        <i class='fas fa-rupee-sign mr-1'></i>{{totalBalance}}
-                      </ion-text>
-                    </ion-card-title>
-                  </td>
-                </tr>
-              </table>
-            </ion-card-header>
-          </ion-card>
-        </a>
+        <ion-card class="widget-card" (click)="widgetClicked('balanceWidget')">
+          <ion-card-header style="padding: 0px;">
+            <table class="widget-class">
+              <tr>
+                <td>
+                  <img src="../../assets/icon/wallet-white.png">
+                </td>
+                <td>
+                  <ion-card-subtitle style="margin-bottom: 5px;">
+                    <ion-text color="primary">
+                      BALANCE
+                    </ion-text>
+                  </ion-card-subtitle>
+                  <ion-card-title style="font-size: 15pt;">
+                    <ion-text color="primary">
+                      <i class='fas fa-rupee-sign mr-1'></i>{{totalBalance}}
+                    </ion-text>
+                  </ion-card-title>
+                </td>
+              </tr>
+            </table>
+          </ion-card-header>
+        </ion-card>
       </ion-col>
       <ion-col size="12">
-        <ion-card class="widget-card">
+        <ion-card class="widget-card" (click)="widgetClicked('expenseWidget')">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>
@@ -56,7 +54,7 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-card class="widget-card">
+        <ion-card class="widget-card" (click)="widgetClicked('settlements')">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>
@@ -81,7 +79,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="12">
-        <ion-card class="widget-card">
+        <ion-card class="widget-card" (click)="widgetClicked('settlements')">
           <ion-card-header style="padding: 0px;">
             <table class="widget-class">
               <tr>

@@ -21,12 +21,14 @@ import { ActivateComponent } from './activate/activate.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CoreModule } from './core/core.module';
+import { FinanceModule } from './finance/finance.module';
+import { BalanceChartComponent } from './finance/balance-chart/balance-chart.component';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, ActivateComponent, WelcomeComponent, ProfileComponent],
-  entryComponents: [],
+  entryComponents: [BalanceChartComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
-    IonicModule.forRoot(), AppRoutingModule, HomePageModule, CoreModule],
+    IonicModule.forRoot(), AppRoutingModule, HomePageModule, CoreModule, FinanceModule],
   providers: [
     StatusBar,
     SplashScreen, CurrencyPipe, DatePipe,

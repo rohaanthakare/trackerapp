@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  accounts = [];
   budgetStatus = [];
   expenseSplit = [];
+  expenseHistory = [];
   expenseCategory = [];
   totalMonthlyExpense: any;
   totalBalance: any;
@@ -32,6 +34,9 @@ export class DashboardComponent implements OnInit {
   getDashboardData() {
     this.userService.getDashboardData().subscribe(
       (response: any) => {
+        this.accounts = response.accounts;
+        this.expenseSplit = response.expenseSplit;
+        this.expenseHistory = response.expenseHistory;
         this.prepareAccountBalanceChartData(response.accounts);
         this.prepareExpenseSplitData(response.expenseSplit);
         if (response.financeProfile) {
@@ -99,7 +104,27 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  widgetClicked(widget) {
-    this.router.navigate(['home/finance/balance-chart']);
+  async widgetClicked(widget) {
+    switch (widget) {
+      case 'balanceWidget':
+        this.router.navigate(['home/finance/balance-chart'], {
+          queryParams: {
+            accounts: JSON.stringify(this.accounts)
+          }
+        });
+        break;
+      case 'expenseWidget':
+        this.router.navigate(['home/finance/expense-charts'], {
+          queryParams: {
+            expenseSplit: JSON.stringify(this.expenseSplit),
+            expenseHistory: JSON.stringify(this.expenseHistory)
+          }
+        });
+        break;
+      case 'settlements': {
+        this.router.navigate(['home/finance/settlements']);
+        break;
+      }
+    }
   }
 }

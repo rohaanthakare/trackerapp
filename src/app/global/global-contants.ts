@@ -1,8 +1,8 @@
 export class GlobalConstants {
     public static COLORS = {
-        domain: ['#0D3B66', '#DB504A', '#E8D284', '#8AB0AB', '#E3B505',
-            '#2C4251', '#289AC0', '#110B11', '#EBD8BB', '#82DBFF',
-            '#FF919E', '#FFF791', '#6A7375', '#2DB5C2', '#E88886']
+        domain: ['#5BC0BE', '#FFE66D', '#00B4D8', '#E63946', '#F1FAEE', '#81B29A', '#FFBE0B', '#EF476F', '#FAF3DD',
+            '#87BBA2', '#4EA8DE', '#FFA69E', '#E4FDE1', '#B4FADC', '#FFFD82', '#70D6FF', '#EE4266', '#C0C0C0',
+            '#A1C181', '#FDB833', '#43BCCD']
     };
 
     public static SINGLE_COLOR = {

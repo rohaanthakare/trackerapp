@@ -1,3 +1,26 @@
-<p>
-  expense-charts works!
-</p>
+<ion-content color="primary">
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-text color="light">
+          MONTHLY EXPENSE
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="height: 250px; padding: 15px;">
+      <canvas #monthlyExpense></canvas>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="chart-card">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-text color="light">
+          EXPENSE HISTORY
+        </ion-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="height: 250px; padding: 15px;">
+      <canvas #expenseHistory></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

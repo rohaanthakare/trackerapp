@@ -1,9 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { GlobalConstants } from 'src/app/global/global-contants';
-import { UserService } from 'src/app/services/user.service';
-import { environment } from 'src/environments/environment';
-import { FinanceService } from 'src/app/services/finance.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-balance-chart',
@@ -15,20 +13,19 @@ export class BalanceChartComponent implements OnInit {
   private accounts = [];
   appUrl: any;
   @ViewChild('pieCanvas', {static: false}) barCanvas: ElementRef;
-  constructor(private financeService: FinanceService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {}
 
   ionViewWillEnter() {
-    this.financeService.getFinancialAccounts().subscribe(
-      (response: any) => {
-        this.createBalanceChart(response.data);
+    this.route.queryParams.subscribe(
+      params => {
+        this.createBalanceChart(JSON.parse(params.accounts));
       }
     );
   }
 
   createBalanceChart(data) {
-    console.log(data);
     const chartLabels = [];
     const chartData = [];
     const colors = [];
@@ -63,6 +60,7 @@ export class BalanceChartComponent implements OnInit {
         maintainAspectRatio: false,
         legend: {
           display: true,
+          position: 'right',
           labels: {
             fontColor: '#FFFFFF'
           }
