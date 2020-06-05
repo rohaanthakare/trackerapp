@@ -7,11 +7,19 @@
         </ion-text>
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content style="padding: 15px;">
-      <ion-list *ngFor="let catg of budgetStatus" style="padding-top: 0px; padding-bottom:0px;">
-        <ion-list-header>{{catg.category}}</ion-list-header>
-        <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px;" [color]="catg.barColor"></ion-progress-bar>
-      </ion-list>
+    <ion-card-content style="padding: 15px;" color="primary">
+      <ion-grid>
+        <ion-row *ngFor="let catg of budgetStatus">
+          <ion-col size="12" style="color: white">
+            {{catg.category}}
+            <hr>
+            (Budget - {{catg.allocatedString}}, Spent - {{catg.spentAmtString}})
+          </ion-col>
+          <ion-col size="12">
+            <ion-progress-bar [value]="catg.spentPercentage" style="height: 10px; background-color: rgba(255,255,255,0.1);" [color]="catg.barColor"></ion-progress-bar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>

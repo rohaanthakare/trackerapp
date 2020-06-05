@@ -35,6 +35,7 @@ export class GroceryListComponent implements OnInit {
   }
 
   getAllGroceryItems() {
+    this.groceryItems = [];
     this.groceryService.getGroceryItems().subscribe(
       (response: any) => {
         console.log(response);
@@ -70,10 +71,11 @@ export class GroceryListComponent implements OnInit {
   async onCustomButtonClicked(button) {
     switch (button.viewCode) {
       case 'GROCERY_REMOVE_FROM_STOCK': {
+        const inStockItems = this.groceryItems.filter((i) => !i.isOutOfStock);
         const modal = await this.modalController.create({
           component: GrocerySelectListComponent,
           componentProps: {
-            items: this.groceryItems,
+            items: inStockItems,
             actionName: 'Remove from Stock',
             listTitle: 'Grocery List'
           }
@@ -87,7 +89,8 @@ export class GroceryListComponent implements OnInit {
           this.groceryService.consumeGrocery(itemIds).subscribe(
             (response: any) => {
               this.notification.successNotification(response.message);
-              this.getAllGroceryItems();
+              // this.getAllGroceryItems();
+              this.listCmp.loadListData([]);
             }
           );
         });
@@ -96,10 +99,11 @@ export class GroceryListComponent implements OnInit {
       }
 
       case 'GROCERY_ADD_TO_STOCK': {
+        const outOfStockItems = this.groceryItems.filter((i) => i.isOutOfStock);
         const modal = await this.modalController.create({
           component: GrocerySelectListComponent,
           componentProps: {
-            items: this.groceryItems,
+            items: outOfStockItems,
             actionName: 'Add to Stock',
             listTitle: 'Grocery List'
           }
@@ -113,7 +117,7 @@ export class GroceryListComponent implements OnInit {
           this.groceryService.refillGrocery(itemIds).subscribe(
             (response: any) => {
               this.notification.successNotification(response.message);
-              this.getAllGroceryItems();
+              // this.getAllGroceryItems();
             }
           );
         });

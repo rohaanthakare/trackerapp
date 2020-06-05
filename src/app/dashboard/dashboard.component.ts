@@ -26,6 +26,9 @@ export class DashboardComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.masterDataService.getMasterDataForParent('EXPENSE_CATEGORY').subscribe(
       (response: any) => {
         this.expenseCategory = response.data;
@@ -98,10 +101,10 @@ export class DashboardComponent implements OnInit {
           progressColor = 'dark';
         } else if (spentPer > 0 && spentPer < 0.1) {
           progressColor = 'danger';
-        } else if (spentPer > 0.11 && spentPer < 0.5) {
+        } else if (spentPer > 0.11 && spentPer <= 0.5) {
           progressColor = 'warning';
         } else if (spentPer > 0.51 && spentPer < 0.80) {
-          progressColor = 'primary';
+          progressColor = 'light';
         } else if (spentPer > 0.81) {
           progressColor = 'success';
         }
@@ -143,10 +146,13 @@ export class DashboardComponent implements OnInit {
       case 'budgetWidget': {
         this.router.navigate(['home/finance/budget-status'], {
           queryParams: {
-            expenseSplit: JSON.stringify(this.expenseSplit),
-            expenseHistory: JSON.stringify(this.expenseHistory)
+            budgetStatus: JSON.stringify(this.budgetStatus)
           }
         });
+        break;
+      }
+      case 'groceryWidget': {
+        this.router.navigate(['home/grocery-list']);
         break;
       }
     }
