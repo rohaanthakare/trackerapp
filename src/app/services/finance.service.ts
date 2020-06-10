@@ -3,22 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DataLoadModule } from '../models/data-load-module.model';
 import { Bank, Branch } from '../models/finance.model';
-import { from } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { concatMap, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinanceService {
-
+  cachedBanks: Observable<Array<Bank>>;
+  cachedBranches: Observable<Array<Branch>>;
+  cachedAccounts: Observable<Array<any>>;
   constructor(private http: HttpClient) { }
 
   createBank(bankDetails) {
     return this.http.post(`${environment.baseUrl}/api/create_bank`, bankDetails);
   }
 
+  requestBanks() {
+    return this.http.get<any>(`${environment.baseUrl}/api/banks`);
+  }
+
   getBanks() {
-    return this.http.get(`${environment.baseUrl}/api/banks`);
+    if (!this.cachedBanks) {
+      this.cachedBanks = this.requestBanks().pipe(
+        shareReplay(100)
+      );
+    }
+
+    return this.cachedBanks;
   }
 
   createBranch(branchDetails) {
@@ -26,7 +38,17 @@ export class FinanceService {
   }
 
   getBranches() {
-    return this.http.get(`${environment.baseUrl}/api/branches`);
+    if (!this.cachedBranches) {
+      this.cachedBranches = this.requestBranches().pipe(
+        shareReplay(100)
+      );
+    }
+
+    return this.cachedBranches;
+  }
+
+  requestBranches() {
+    return this.http.get<any>(`${environment.baseUrl}/api/branches`);
   }
 
   uploadBanks(rows, moduleDetails: DataLoadModule, dataLoaderCmp) {
@@ -58,8 +80,18 @@ export class FinanceService {
     );
   }
 
+  requestFinancialAccounts() {
+    return this.http.get<any>(`${environment.baseUrl}/api/get_financial_accounts`);
+  }
+
   getFinancialAccounts() {
-    return this.http.get(`${environment.baseUrl}/api/get_financial_accounts`);
+    if (this.cachedAccounts) {
+      this.cachedAccounts = this.requestFinancialAccounts().pipe(
+        shareReplay(50)
+      );
+    }
+
+    return this.cachedAccounts;
   }
 
   getFinancialAccountDetails(id) {

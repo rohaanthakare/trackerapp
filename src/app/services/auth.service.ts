@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MasterDataService } from './master-data.service';
+import { FinanceService } from './finance.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isAuthorized = false;
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private masterDataService: MasterDataService,
+              private financeService: FinanceService) { }
 
   isUserAuthenticated() {
     return this.isAuthorized;
@@ -36,6 +39,11 @@ export class AuthService {
       if (res.user) {
         this.setUserDetails(res.user);
         this.setUserToken(res.user_token);
+        // Cache some master data
+        this.masterDataService.getAllMasterData().subscribe();
+        this.financeService.getBanks().subscribe();
+        this.financeService.getBranches().subscribe();
+        this.financeService.getFinancialAccounts().subscribe();
       }
       return res;
     }));
