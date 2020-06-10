@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { MasterViewService } from 'src/app/services/master-view.service';
 import { PopoverController, ActionSheetController } from '@ionic/angular';
 import { ActionListComponent } from '../action-list/action-list.component';
@@ -27,7 +27,7 @@ export class SimpleListComponent implements OnInit {
   @Output() toolbarButtonsAdded: EventEmitter<any> = new EventEmitter<any>();
   @Output() customButtonClicked: EventEmitter<any> = new EventEmitter<any>();
   constructor(private masterViewService: MasterViewService, private popoverCtrl: PopoverController, private router: Router,
-              private actionSheetController: ActionSheetController) { }
+              private actionSheetController: ActionSheetController, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.masterViewService.getToolbarActions(this.viewCode).subscribe(
@@ -54,11 +54,13 @@ export class SimpleListComponent implements OnInit {
   }
 
   loadListData(data, count?) {
-    if (this.hasGrouping) {
-      data = this.insertGroupHeaders(data);
-    }
-    this.listItems = data;
-    this.dataLoaded.emit();
+    this.ngZone.run(() => {
+      if (this.hasGrouping) {
+        data = this.insertGroupHeaders(data);
+      }
+      this.listItems = data;
+      this.dataLoaded.emit();
+    });
   }
 
   insertGroupHeaders(data) {
