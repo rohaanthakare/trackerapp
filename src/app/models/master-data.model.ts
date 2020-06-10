@@ -4,5 +4,5 @@ export class MasterData {
     configName: string;
     configDesc: string;
     displayOrder: number;
-    parentConfig: string;
+    parentConfig: any;
 }
