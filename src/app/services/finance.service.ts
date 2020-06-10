@@ -85,7 +85,7 @@ export class FinanceService {
   }
 
   getFinancialAccounts() {
-    if (this.cachedAccounts) {
+    if (!this.cachedAccounts) {
       this.cachedAccounts = this.requestFinancialAccounts().pipe(
         shareReplay(50)
       );

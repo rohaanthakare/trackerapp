@@ -15,7 +15,7 @@
   <ng-container *ngIf="accounts.length !== 0">
     <ion-item button (click)="itemClicked(account)" detail *ngFor="let account of accounts">
       <ion-avatar slot="start">
-        <img [src]='getBankLogo(account)' style="border-radius: 0px;" alt="Not Found" onerror="this.src='assets/icon/bank.jpg'">
+        <img [src]='getBankLogo(account)' style="border-radius: 0px;" alt="Not Found" onerror="this.src='assets/icon/bank.png'">
       </ion-avatar>
       <ion-label>
         <h3 style="font-size: 15pt;">

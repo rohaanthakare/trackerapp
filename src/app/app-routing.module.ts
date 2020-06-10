@@ -12,7 +12,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [HomeGuard]},
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [HomeGuard] },
   { path: 'register', component: RegisterComponent},
   { path: 'activate-by-otp/:id', component: ActivateComponent},
   {

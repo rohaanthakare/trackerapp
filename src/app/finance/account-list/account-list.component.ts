@@ -42,8 +42,8 @@ export class AccountListComponent implements OnInit {
   getBankLogo(account) {
     if (account.bank) {
       this.appUrl = `${environment.baseUrl}/bank-logo/${account.bank.bankCode}.png`;
-    } else {
-      this.appUrl = 'assets/icon/bank.jpg';
+    } else if (account.accountType.configCode === 'WALLET') {
+      this.appUrl = 'assets/icon/wallet-primary.png';
     }
     return this.appUrl;
   }
