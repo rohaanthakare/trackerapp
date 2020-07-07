@@ -1,4 +1,4 @@
-<app-simple-list listTitle="Grocery" displayFieldName="name" viewCode="GROCERY_TRACKER" (customButtonClicked)="onCustomButtonClicked($event)"
+<app-simple-list class="tracker-scroll" listTitle="Grocery" displayFieldName="name" viewCode="GROCERY_TRACKER" (customButtonClicked)="onCustomButtonClicked($event)"
   hasNote="true"></app-simple-list>
 
 <ion-select ok-text="Share" hidden="true" #contactSelect (ionChange)="shareGroceryList()">

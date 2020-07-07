@@ -89,8 +89,7 @@ export class GroceryListComponent implements OnInit {
           this.groceryService.consumeGrocery(itemIds).subscribe(
             (response: any) => {
               this.notification.successNotification(response.message);
-              // this.getAllGroceryItems();
-              this.listCmp.loadListData([]);
+              this.getAllGroceryItems();
             }
           );
         });
@@ -117,7 +116,7 @@ export class GroceryListComponent implements OnInit {
           this.groceryService.refillGrocery(itemIds).subscribe(
             (response: any) => {
               this.notification.successNotification(response.message);
-              // this.getAllGroceryItems();
+              this.getAllGroceryItems();
             }
           );
         });
