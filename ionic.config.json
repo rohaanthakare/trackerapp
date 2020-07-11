@@ -1,5 +1,7 @@
 {
   "name": "trackerApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
