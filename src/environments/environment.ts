@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // baseUrl: 'https://trackerng-backend.herokuapp.com',
-  baseUrl: 'http://localhost:4191'
+  baseUrl: 'http://ec2-13-233-227-235.ap-south-1.compute.amazonaws.com'
 };
 
 /*
