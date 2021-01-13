@@ -24,7 +24,7 @@ export class ModelFormComponent implements OnInit {
 
   setFormFields(fields) {
     fields.forEach((f) => {
-      if (!this.formGroup.controls[f.name]) {
+      if (this.formGroup && !this.formGroup.controls[f.name]) {
         this.formGroup.controls[f.name] = f.control;
       }
 

@@ -25,12 +25,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.loaderService.isLoading.subscribe((v) => {
-      if (v) {
-        this.loaderService.showLoader();
-      } else {
-        this.loaderService.hideLoader();
-      }
-    });
   }
 }

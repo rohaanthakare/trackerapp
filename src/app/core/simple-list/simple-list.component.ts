@@ -65,19 +65,21 @@ export class SimpleListComponent implements OnInit {
 
   insertGroupHeaders(data) {
     const returnData = [];
-    let oldGroupLabel = data[0][this.groupLabelField];
-    returnData.push({
-      groupHeader: oldGroupLabel
-    });
-    data.forEach((d) => {
-      if (oldGroupLabel !== d[this.groupLabelField]) {
-        oldGroupLabel = d[this.groupLabelField];
-        returnData.push({
-          groupHeader: oldGroupLabel
-        });
-      }
-      returnData.push(d);
-    });
+    if (data.length > 0) {
+      let oldGroupLabel = data[0][this.groupLabelField];
+      returnData.push({
+        groupHeader: oldGroupLabel
+      });
+      data.forEach((d) => {
+        if (oldGroupLabel !== d[this.groupLabelField]) {
+          oldGroupLabel = d[this.groupLabelField];
+          returnData.push({
+            groupHeader: oldGroupLabel
+          });
+        }
+        returnData.push(d);
+      });
+    }
     return returnData;
   }
 

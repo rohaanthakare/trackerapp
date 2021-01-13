@@ -54,7 +54,15 @@ export class PasswordFormComponent implements OnInit {
   savePassword() {
     if (this.passwordForm.valid) {
       if (this.passwordId) {
-
+        this.passwordService.updatePassword(this.passwordId, this.passwordForm.value).subscribe(
+          (response: any) => {
+            this.notification.successNotification(response.message);
+            this.router.navigate(['home/password']);
+          },
+          error => {
+            this.notification.errorNotification('Error while updating password, please try again');
+          }
+        );
       } else {
         this.passwordService.createPassword(this.passwordForm.value).subscribe(
           (response: any) => {
@@ -62,7 +70,7 @@ export class PasswordFormComponent implements OnInit {
             this.router.navigate(['home/password']);
           },
           error => {
-            this.notification.errorNotification('Error while updating password, please try again');
+            this.notification.errorNotification('Error while creating password, please try again');
           }
         );
       }

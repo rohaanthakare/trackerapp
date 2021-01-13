@@ -17,12 +17,17 @@ export class LoaderInterceptorService implements HttpInterceptor {
       this.requests.splice(i, 1);
     }
 
-    this.loaderService.isLoading.next(this.requests.length > 0);
+    if (this.requests.length === 0) {
+      this.loaderService.dismiss();
+    }
+
+    // this.loaderService.isLoading.next(this.requests.length > 0);
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     this.requests.push(req);
-    this.loaderService.isLoading.next(true);
+    this.loaderService.present();
+    // this.loaderService.isLoading.next(true);
     return Observable.create(observer => {
       const subscription = next.handle(req).subscribe(
         event => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { LoadingController, ModalController } from '@ionic/angular';
 
@@ -7,25 +7,32 @@ import { LoadingController, ModalController } from '@ionic/angular';
 })
 export class LoaderService {
   isLoading = new BehaviorSubject(false);
+  isLoadingFlag = false;
+  isPresented = false;
   loaderToShow: any;
-  constructor(private loadingCtrl: LoadingController, private modalCtrl: ModalController) { }
+  constructor(private loadingCtrl: LoadingController, private modalCtrl: ModalController,
+    private ngZone: NgZone) { }
 
-  showLoader() {
-      if (!this.loaderToShow) {
-        this.loaderToShow = this.loadingCtrl.create({
-            message: 'Loading...'
-          }).then((res) => {
-            res.present();
+  async present() {
+    this.isLoadingFlag = true;
+    return await this.loadingCtrl.create({
+      message: 'Please wait...'
+    }).then(a => {
+      a.present().then(() => {
+        if (!this.isLoadingFlag) {
+          a.dismiss().then(() => {
           });
-      }
+        }
+      });
+    });
   }
 
-  hideLoader() {
-    setTimeout(() => {
-        if (this.loaderToShow) {
-            this.loadingCtrl.dismiss();
-            this.loaderToShow = undefined;
+  async dismiss() {
+      setTimeout(async () => {
+        if (this.isLoadingFlag) {
+          this.isLoadingFlag = false;
+          return await this.loadingCtrl.dismiss().then(() => {});
         }
-    }, 4000);
+      }, 100);
   }
 }

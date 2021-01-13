@@ -35,6 +35,9 @@ export class ContactFormComponent implements OnInit {
               private notificationService: NotificationService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.masterDataService.getMasterDataForParent('TITLE').subscribe(
       (response: any) => {
         this.titles = response.data;
@@ -121,6 +124,7 @@ export class ContactFormComponent implements OnInit {
         this.contactService.createUserContact(this.contactForm.value).subscribe(
           (response: any) => {
             this.notificationService.successNotification(response.message);
+            this.contactForm.reset();
             this.router.navigate(['home/contact']);
           },
           error => {

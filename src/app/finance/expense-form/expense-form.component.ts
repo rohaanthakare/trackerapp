@@ -231,6 +231,7 @@ export class ExpenseFormComponent implements OnInit {
       this.financeService.addExpense(this.expenseForm.value).subscribe(
         (response: any) => {
           this.expenseForm.reset();
+          this.ionViewWillEnter();
           this.notification.successNotification(response.message);
         },
         (error: any) => {

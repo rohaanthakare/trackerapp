@@ -12,6 +12,9 @@ export class PasswordListComponent implements OnInit {
   constructor(private passwordService: PasswordService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.passwordService.getAllPasswords(undefined, 0, 5).subscribe(
       (response: any) => {
         this.passwords = response.data;
