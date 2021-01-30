@@ -14,25 +14,27 @@ export class LoaderService {
     private ngZone: NgZone) { }
 
   async present() {
-    this.isLoadingFlag = true;
-    return await this.loadingCtrl.create({
-      message: 'Please wait...'
-    }).then(a => {
-      a.present().then(() => {
-        if (!this.isLoadingFlag) {
-          a.dismiss().then(() => {
-          });
-        }
+    if (!this.isLoadingFlag) {
+      this.isLoadingFlag = true;
+      return await this.loadingCtrl.create({
+        message: 'Please wait...'
+      }).then(a => {
+        a.present().then(() => {
+          if (!this.isLoadingFlag) {
+            a.dismiss().then(() => {
+            });
+          }
+        });
       });
-    });
+    }
   }
 
   async dismiss() {
-      setTimeout(async () => {
-        if (this.isLoadingFlag) {
-          this.isLoadingFlag = false;
-          return await this.loadingCtrl.dismiss().then(() => {});
-        }
-      }, 100);
+    setTimeout(async () => {
+      if (this.isLoadingFlag) {
+        this.isLoadingFlag = false;
+        return await this.loadingCtrl.dismiss().then(() => {});
+      }
+    }, 100);
   }
 }
